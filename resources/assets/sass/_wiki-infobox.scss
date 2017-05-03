@@ -74,7 +74,7 @@ table.info-box {
 
   thead {
     tr {
-      background-color: darken($brand-blue, 5%);
+      background-color: darken($brand-info, 5%);
       color: #fff;
 
       th {
@@ -85,15 +85,15 @@ table.info-box {
 
   tbody {
     th {
-      background-color: lighten($brand-blue, 15%);
-      color: darken($brand-blue, 40%);
+      background-color: lighten($brand-info, 15%);
+      color: darken($brand-info, 40%);
     }
 
     tr:nth-child(even) {
       background-color: darken(whitesmoke, 5%);
 
       th {
-        background-color: lighten($brand-blue, 10%);
+        background-color: lighten($brand-info, 10%);
       }
     }
   }

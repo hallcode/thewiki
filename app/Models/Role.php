@@ -4,12 +4,19 @@ namespace App\Models;
 
 use App\User;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Role extends Model
 {
     protected $dates = [
         'created_at',
         'updated_at',
+        'expires_at'
+    ];
+
+    protected $fillable = [
+        'user_id',
+        'type',
         'expires_at'
     ];
 

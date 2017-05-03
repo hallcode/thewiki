@@ -230,3 +230,12 @@ form {
     column-count: 1;
   }
 }
+
+.icon-button {
+  font-size: 2rem;
+  color: darken($brand-grey, 10%);
+
+  &:hover {
+    color: darken($brand-grey, 26.7%);
+  }
+}

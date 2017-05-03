@@ -13,7 +13,10 @@ class PageController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        if (config('security.permissions.page.view') !== true)
+        {
+            $this->middleware('auth');
+        }
     }
 
     /**
@@ -23,6 +26,8 @@ class PageController extends Controller
      */
     public function index()
     {
+        $this->authorize('all', Page::class);
+
         $pages = DB::table('pages')
             ->select(DB::raw('*, LEFT(`title`, 1) as `first_letter`'))
             ->whereNull('deleted_at')
@@ -34,6 +39,8 @@ class PageController extends Controller
 
     public function needed()
     {
+        $this->authorize('all', Page::class);
+
         $redlinks = Interlink::select('link_reference', DB::raw('count(`link_reference`) as `count`'))
             ->whereNull('target_page_id')
             ->groupBy('link_reference')
@@ -52,6 +59,8 @@ class PageController extends Controller
      */
     public function create($reference = null)
     {
+        $this->authorize('create', Page::class);
+
         $page = Page::findByTitle($reference);
 
         if ($page->count() === 0)
@@ -79,8 +88,8 @@ class PageController extends Controller
      */
     public function store(Request $request, $reference = null)
     {
-        // TODO: abort(403) if permissions fail
-        
+        $this->authorize('create', Page::class);
+
         // Validation
         $this->validate($request, [
             'title' => 'required|unique:pages,title',
@@ -126,9 +135,11 @@ class PageController extends Controller
     {
         $page = Page::findByTitle($reference);
 
-        if ($page->count() === 0)
+        $this->authorize('view', $page);
+
+        if (Auth::user()->cannot('view', $page))
         {
-            return $this->suggestCreate($reference);
+            return abort(404);
         }
 
         return view('page.show', [
@@ -147,6 +158,8 @@ class PageController extends Controller
     public function edit($reference)
     {
         $page = Page::findByTitle($reference);
+
+        $this->authorize('update', $page);
 
         if ($page->count() === 0)
         {
@@ -171,6 +184,8 @@ class PageController extends Controller
     {
         // Get Page
         $page = Page::findByTitle($reference);
+
+        $this->authorize('update', $page);
 
         if ($page->count() === 0)
         {
@@ -208,11 +223,13 @@ class PageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->authorize('delete', Page::class);
     }
 
     public function random()
     {
+        $this->authorize('all', Page::class);
+
         $page = Page::inRandomOrder()->limit(1)->first();
 
         return redirect(route('page.show', ['reference' => $page->reference]));

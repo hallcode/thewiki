@@ -15,6 +15,15 @@
 @section('content')
     <header>
         <h1>{{ $page->title }}</h1>
+        <nav>
+            <a href="#" class="icon-button"><i class="fa fa-fw fa-star-o"></i> </a>
+            @can('protect', $page)
+            <a href="#" class="icon-button"><i class="fa fa-fw fa-shield"></i> </a>
+            @endcan
+            @can('delete', $page)
+            <a href="#" class="icon-button"><i class="fa fa-fw fa-trash-o"></i> </a>
+            @endcan
+        </nav>
     </header>
     @if ($page->edits->last())
         <p class="meta">Last edited {{ $page->edits->last()->created_at->diffForHumans() }} by <a
