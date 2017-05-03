@@ -1,0 +1,73 @@
+#tabs {
+  flex: 1 1 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  > nav {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    > * {
+      padding: 7px 8px;
+      border-left: 1px solid;
+      margin-bottom: -1px;
+      border-image: linear-gradient(0deg, $laravel-border-color, rgba(255,255,255,0)) 1;
+      background: linear-gradient(0deg, lighten($laravel-border-color, 25%), rgba(255,255,255,0));
+
+      &:not(.mobile-only) {
+        @media (max-width: 860px) {
+          display: none;
+        }
+      }
+
+      &.active {
+        background: linear-gradient(0deg, rgba(255,255,255,1), rgba(255,255,255,0));
+        color: $text-color;
+        padding: 8px 8px;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+
+      &:last-child {
+        border-right: 1px solid;
+      }
+
+      &.mobile-only {
+        border-right: 1px solid;
+      }
+    }
+  }
+}
+
+.dropdown.open nav.dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0;
+  align-items: stretch;
+
+  &.dropdown-menu-right {
+    > * {
+      text-align: right;
+    }
+  }
+
+  > * {
+    padding: 0.4rem 1.25rem;
+    color: $dropdown-link-color;
+  }
+
+  > a {
+    &:hover {
+      background-color: $dropdown-link-hover-bg;
+      color: $dropdown-link-hover-color;
+      text-decoration: none;
+    }
+
+    &.active {
+      display: none;
+    }
+  }
+}

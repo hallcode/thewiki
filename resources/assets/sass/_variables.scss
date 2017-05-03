@@ -1,0 +1,54 @@
+// Body
+$body-bg: #f5f8fa;
+
+// Brands
+$brand-grey-dark: #191919;
+$brand-grey: #E5E5E5;
+
+$brand-blue: #82C3E0;
+$brand-purple: #B381E2;
+$brand-red: #E2819D;
+$brand-yellow: #E0D982;
+$brand-green: #81E28D;
+
+$brand-primary: darken(#428bca, 6.5%);
+$brand-info: #8eb4cb;
+$brand-success: #2ab27b;
+$brand-warning: #cbb956;
+$brand-danger: #bf5329;
+
+// Borders
+$laravel-border-color: $brand-blue;
+$list-group-border: $laravel-border-color;
+$navbar-default-border: $laravel-border-color;
+$panel-default-border: $laravel-border-color;
+$panel-inner-border: $laravel-border-color;
+
+// Typography
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+$font-family-sans-serif: "Droid Sans", sans-serif;
+$font-family-serif: "Droid Serif", serif;
+$headings-font-family: $font-family-serif;
+$font-size-base: 12px;
+$line-height-base: 1.5;
+$text-color: $brand-grey-dark;
+
+// Navbar
+$navbar-default-bg: #fff;
+
+// Buttons
+$btn-default-color: $text-color;
+
+// Inputs
+$input-border-focus: lighten($brand-primary, 25%);
+$input-color-placeholder: lighten($text-color, 30%);
+
+// Panels
+$panel-default-heading-bg: #fff;
+
+// Border-Radius:
+$border-radius-base: 3px;
+
+// Link Colours
+$link-color: #0071BC;
+$redlink-color: #BA0035;

@@ -1,0 +1,63 @@
+// Headers
+h1, h2, h3, h4, h5, h6 {
+  border-bottom: 1px solid rgb(162, 169, 177);
+}
+
+article#page-content {
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 2.25rem;
+  }
+
+  h3, h4, h5, h6 {
+    border: none;
+    font-family: $font-family-sans-serif;
+    font-weight: bold;
+  }
+
+  table:not(.info-box) {
+    background-color: whitesmoke;
+    border: 1px solid darken(whitesmoke, 20%);
+
+    td, th {
+      border: 1px solid darken(whitesmoke, 20%);
+      padding: 3pt 6pt;
+    }
+
+    th {
+      background-color: darken(whitesmoke, 10%);
+    }
+  }
+}
+
+a.blue-link {
+  color: $link-color;
+
+  &:hover {
+    color: darken($link-color, 10%);
+  }
+}
+
+a.red-link {
+  color: $redlink-color;
+
+  &:hover {
+    color: darken($redlink-color, 10%);
+  }
+}
+
+a.header-link {
+  color: $gray-light;
+  font-size: 72.5%;
+  margin: 0 0.5em;
+
+  &:hover {
+    text-decoration: none;
+    color: darken($gray-light, 10%);
+  }
+}
+
+span.edit-link {
+  font-size: 1.85rem;
+  font-weight: normal;
+  font-family: $font-family-sans-serif;
+}

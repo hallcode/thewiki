@@ -1,0 +1,100 @@
+.wiki-box {
+  background-color: whitesmoke;
+  border: 1px solid darken(whitesmoke, 20%);
+  padding: 1rem;
+  margin: 0.5rem 0.2rem;
+
+  &.red {
+    border: 1px solid darken($brand-red, 20%);
+    border-left: 8px solid $brand-red;
+
+    > .icon {
+      color: $brand-red;
+    }
+  }
+
+  &.blue {
+    border: 1px solid darken($brand-blue, 20%);
+    border-left: 8px solid $brand-blue;
+
+    > .icon {
+      color: $brand-blue;
+    }
+  }
+
+  &.green {
+    border: 1px solid darken($brand-green, 20%);
+    border-left: 8px solid $brand-green;
+
+    > .icon {
+      color: $brand-green;
+    }
+  }
+
+  &.yellow {
+    border: 1px solid darken($brand-yellow, 20%);
+    border-left: 8px solid $brand-yellow;
+
+    > .icon {
+      color: $brand-yellow;
+    }
+  }
+
+  &.purple {
+    border: 1px solid darken($brand-purple, 20%);
+    border-left: 8px solid $brand-purple;
+
+    > .icon {
+      color: $brand-purple;
+    }
+  }
+}
+
+form .wiki-box {
+  margin-bottom: 1.5rem;
+}
+
+div.info-box {
+  background-color: whitesmoke;
+  border: 1px solid darken(whitesmoke, 20%);
+  padding: 1rem;
+  margin: 0.5rem 0.2rem;
+}
+
+table.info-box {
+  width: 100%;
+  background-color: whitesmoke;
+  border: 1px solid darken(whitesmoke, 20%);
+  border-collapse: separate;
+  border-spacing: 0.4rem;
+
+  td, th {
+    padding: 3pt 6pt;
+  }
+
+  thead {
+    tr {
+      background-color: darken($brand-blue, 5%);
+      color: #fff;
+
+      th {
+        text-align: center;
+      }
+    }
+  }
+
+  tbody {
+    th {
+      background-color: lighten($brand-blue, 15%);
+      color: darken($brand-blue, 40%);
+    }
+
+    tr:nth-child(odd) {
+      background-color: darken(whitesmoke, 5%);
+
+      th {
+        background-color: lighten($brand-blue, 10%);
+      }
+    }
+  }
+}
