@@ -7,8 +7,8 @@
 @endsection
 
 @section('rightTabs')
-    <a href="{{ route('page.show', ["reference" => $page->reference]) }}" class="active tab">Read</a>
-    <a href="{{ route('page.edit', ['reference' => $page->reference]) }}" class="tab">Edit</a>
+    <a href="{{ route('page.show', ["reference" => $page->reference]) }}" class="tab">Read</a>
+    <a href="{{ route('page.edit', ['reference' => $page->reference]) }}" class="active tab">Edit</a>
     <a href="#" class="tab">View history</a>
 @endsection
 

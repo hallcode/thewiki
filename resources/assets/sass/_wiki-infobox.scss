@@ -89,7 +89,7 @@ table.info-box {
       color: darken($brand-blue, 40%);
     }
 
-    tr:nth-child(odd) {
+    tr:nth-child(even) {
       background-color: darken(whitesmoke, 5%);
 
       th {

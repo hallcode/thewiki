@@ -211,6 +211,13 @@ class PageController extends Controller
         //
     }
 
+    public function random()
+    {
+        $page = Page::inRandomOrder()->limit(1)->first();
+
+        return redirect(route('page.show', ['reference' => $page->reference]));
+    }
+
     protected function suggestCreate($reference)
     {
         $reference = str_replace('_', ' ', $reference);

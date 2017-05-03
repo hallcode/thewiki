@@ -9,7 +9,8 @@ class WikiController extends Controller
     protected $specialPages = [
         'home' => [ HomeController::class, 'index' ],
         'all' => [ PageController::class, 'index'],
-        'needed' => [ PageController::class, 'needed' ]
+        'needed' => [ PageController::class, 'needed' ],
+        'random' => [ PageController::class, 'random' ]
     ];
 
     /**

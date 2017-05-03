@@ -36,7 +36,7 @@
             @endforeach
         </dl>
 
-        {{ $pages->links() }}
+        {{ $pages->links() }} <em>Total pages: {{ $pages->count() }}</em>
     @else
         <p>No pages. Make one now.</p>
     @endif
