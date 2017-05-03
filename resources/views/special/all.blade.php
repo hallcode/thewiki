@@ -22,7 +22,7 @@
         <dl class="text-columns">
             @foreach($pages->groupBy('first_letter') as $first_letter=>$page_list)
                 <dt>
-                    <h4>{{ $first_letter }}</h4>
+                    {{ $first_letter }}
                 </dt>
                 <dd>
                     <ul>
