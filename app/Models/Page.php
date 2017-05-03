@@ -91,4 +91,12 @@ class Page extends Model
         ];
     }
 
+    public function getWordCountChangeAttribute()
+    {
+        $current_version = $this->current_version;
+        $one_before = $this->versions()->latest()->limit(2)->get()->last();
+
+        return $current_version->word_count - $one_before->word_count;
+    }
+
 }

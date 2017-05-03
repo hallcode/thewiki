@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Edit;
 use App\Models\Interlink;
 use App\Models\Page;
 use DB;
@@ -45,9 +46,24 @@ class PageController extends Controller
             ->whereNull('target_page_id')
             ->groupBy('link_reference')
             ->orderByDesc('count')
-            ->paginate(25);
+            ->paginate(50);
 
         return view('special.needed', ['links' => $redlinks]);
+    }
+
+    public function recent()
+    {
+        $this->authorize('all', Page::class);
+
+        $recentChanges = Edit::select('*', DB::raw('count(`id`) as `edit_count`'), DB::raw('DATE(`created_at`) as `date`'))
+            ->whereNotNull('parent_id')
+            ->groupBy(DB::Raw('`parent_type`, `parent_id`, `action`, `user_id`, `date`'))
+            ->latest()
+            ->get();
+
+        return view('special.recent', [
+            'all_changes' => $recentChanges
+        ]);
     }
 
     /**

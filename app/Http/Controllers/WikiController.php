@@ -10,7 +10,8 @@ class WikiController extends Controller
         'home' => [ HomeController::class, 'index' ],
         'all' => [ PageController::class, 'index'],
         'needed' => [ PageController::class, 'needed' ],
-        'random' => [ PageController::class, 'random' ]
+        'random' => [ PageController::class, 'random' ],
+        'recent' => [ PageController::class, 'recent'],
     ];
 
     /**
