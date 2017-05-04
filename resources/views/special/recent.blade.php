@@ -19,27 +19,41 @@
             <ul>
                 @foreach($changes as $change)
                     <li>
-                        (x{{ $change->edit_count }}) . .
                     @if (class_exists($change->parent_type) && isset($change->parent->title))
+
                             @if (is_a($change->parent, 'App\Models\Page'))
-                                <a href="{{ route('page.show', ['reference' => $change->parent->reference]) }}">{{ $change->parent->title }}</a>;
-                                {{ ucfirst($change->action) }}
-                                <strong>{{ $change->created_at->format('H:i') }}</strong> . .
-                                @if ( $change->parent->word_count_change < 0)
-                                    <strong style="color: darkred">({{ $change->parent->word_count_change }})</strong>
-                                @elseif($change->parent->word_count_change === 0)
-                                    ({{ $change->parent->word_count_change }})
+
+                                @if ($change->action == 'created')
+                                    Page <a href="{{ route('page.show', ['reference' => $change->parent->reference]) }}">{{ $change->parent->title }}</a>
+                                    was created at <strong>{{ $change->created_at->format('H:i') }}</strong>
                                 @else
-                                    <strong style="color: darkgreen">(+ {{ $change->parent->word_count_change }})</strong>
+                                    (diff | hist) . .
+                                    <a href="{{ route('page.show', ['reference' => $change->parent->reference]) }}">{{ $change->parent->title }}</a>;
+                                    {{ ucfirst($change->action) }} at
+                                    <strong>{{ $change->created_at->format('H:i') }}</strong> . .
+
+                                    @if ( $change->parent->wordCountChange($change->created_at)  < 0)
+                                        <strong style="color: darkred">({{ $change->parent->wordCountChange($change->created_at) }})</strong>
+                                    @elseif($change->parent->wordCountChange($change->created_at)  === 0)
+                                        ({{ $change->parent->wordCountChange($change->created_at)  }})
+                                    @else
+                                        <strong style="color: darkgreen">(+ {{ $change->parent->wordCountChange($change->created_at) }})</strong>
+                                    @endif
                                 @endif
+
                             @else
                                 {{ $change->parent->title }}
                             @endif
+                        @elseif ($change->parent_type == 'special:home')
+                            Home Page, Edited at <strong>{{ $change->created_at->format('H:i') }}</strong>
                         @else
                             {{ $change->parent_type }} {{ ucfirst($change->action) }} at
                             <strong>{{ $change->created_at->format('H:i') }}</strong>
                         @endif
                         by <a href="{{ url('/user/' . $change->user->name) }}">{{ $change->user->name }}</a>
+                        @if ($change->edit_count > 1)
+                            . . x{{ $change->edit_count }}
+                        @endif
                     </li>
                 @endforeach
             </ul>

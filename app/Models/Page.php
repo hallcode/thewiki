@@ -91,12 +91,11 @@ class Page extends Model
         ];
     }
 
-    public function getWordCountChangeAttribute()
+    public function wordCountChange($time)
     {
-        $current_version = $this->current_version;
-        $one_before = $this->versions()->latest()->limit(2)->get()->last();
+        $versions = $this->versions()->before($time)->limit(2)->get();
 
-        return $current_version->word_count - $one_before->word_count;
+        return $versions->first()->word_count - $versions->last()->word_count;
     }
 
 }

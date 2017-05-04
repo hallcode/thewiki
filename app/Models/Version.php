@@ -6,6 +6,7 @@ use App\Parsers\WikiParser;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use DB;
 
 class Version extends Model
 {
@@ -47,5 +48,11 @@ class Version extends Model
     {
         $this->attributes['markdown'] = strip_tags($value);
         $this->attributes['word_count'] = str_word_count($value);
+    }
+
+    public function scopeBefore($query, $time)
+    {
+        return $query->where('created_at', '<=', $time)
+            ->latest();
     }
 }

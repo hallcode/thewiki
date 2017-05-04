@@ -30,12 +30,6 @@ class PageObserver
 
     public function saved(Page $page)
     {
-        // Update the edit table
-        $edit = new Edit();
-        $edit->user_id = Auth::id();
-        $edit->action = 'edited';
-        $page->edits()->save($edit);
-
         // Make sure the interlinks are recorded!
         if (isset($_POST["markdown"]))
         {

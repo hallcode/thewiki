@@ -133,8 +133,6 @@ class PageController extends Controller
 
         $page->save();
 
-
-
         return redirect(route('page.show', ['reference' => $page->reference]));
         
     }
@@ -227,6 +225,12 @@ class PageController extends Controller
         }
 
         $page->save();
+
+        // Update the edit table
+        $edit = new Edit();
+        $edit->user_id = Auth::id();
+        $edit->action = 'edited';
+        $page->edits()->save($edit);
 
         return redirect(route('page.show', ['reference' => $page->reference]));
     }
