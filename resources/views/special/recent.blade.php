@@ -25,19 +25,19 @@
 
                                 @if ($change->action == 'created')
                                     Page <a href="{{ route('page.show', ['reference' => $change->parent->reference]) }}">{{ $change->parent->title }}</a>
-                                    was created at <strong>{{ $change->created_at->format('H:i') }}</strong>
+                                    was created at <strong>{{ date('H:i', strtotime($change->latest_created_at)) }}</strong>
                                 @else
                                     (diff | hist) . .
                                     <a href="{{ route('page.show', ['reference' => $change->parent->reference]) }}">{{ $change->parent->title }}</a>;
                                     {{ ucfirst($change->action) }} at
-                                    <strong>{{ $change->created_at->format('H:i') }}</strong> . .
+                                    <strong>{{ date('H:i', strtotime($change->latest_created_at)) }}</strong> . .
 
-                                    @if ( $change->parent->wordCountChange($change->created_at)  < 0)
-                                        <strong style="color: darkred">({{ $change->parent->wordCountChange($change->created_at) }})</strong>
-                                    @elseif($change->parent->wordCountChange($change->created_at)  === 0)
-                                        ({{ $change->parent->wordCountChange($change->created_at)  }})
+                                    @if ( $change->parent->wordCountChange($change->latest_created_at)  < 0)
+                                        <span style="color: darkred">({{ $change->parent->wordCountChange($change->latest_created_at) }})</span>
+                                    @elseif($change->parent->wordCountChange($change->latest_created_at)  === 0)
+                                        ({{ $change->parent->wordCountChange($change->latest_created_at)  }})
                                     @else
-                                        <strong style="color: darkgreen">(+ {{ $change->parent->wordCountChange($change->created_at) }})</strong>
+                                        <span style="color: darkgreen">(+ {{ $change->parent->wordCountChange($change->latest_created_at) }})</span>
                                     @endif
                                 @endif
 
@@ -45,10 +45,10 @@
                                 {{ $change->parent->title }}
                             @endif
                         @elseif ($change->parent_type == 'special:home')
-                            Home Page, Edited at <strong>{{ $change->created_at->format('H:i') }}</strong>
+                            Home Page, Edited at <strong>{{ date('H:i', strtotime($change->latest_created_at)) }}</strong>
                         @else
                             {{ $change->parent_type }} {{ ucfirst($change->action) }} at
-                            <strong>{{ $change->created_at->format('H:i') }}</strong>
+                            <strong>{{ date('H:i', strtotime($change->latest_created_at)) }}</strong>
                         @endif
                         by <a href="{{ url('/user/' . $change->user->name) }}">{{ $change->user->name }}</a>
                         @if ($change->edit_count > 1)

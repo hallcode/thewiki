@@ -55,10 +55,14 @@ class PageController extends Controller
     {
         $this->authorize('all', Page::class);
 
-        $recentChanges = Edit::select('*', DB::raw('count(`id`) as `edit_count`'), DB::raw('DATE(`created_at`) as `date`'))
+        $recentChanges = Edit::select(
+                '*',
+                DB::raw('count(`id`) as `edit_count`'),
+                DB::raw('DATE(`created_at`) as `date`'),
+                DB::raw('max(`created_at`) as `latest_created_at`'))
             ->whereNotNull('parent_id')
             ->groupBy(DB::Raw('`parent_type`, `parent_id`, `action`, `user_id`, `date`'))
-            ->latest()
+            ->orderByDesc('latest_created_at')
             ->get();
 
         return view('special.recent', [
