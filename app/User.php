@@ -3,6 +3,8 @@
 namespace App;
 
 use App\Models\Edit;
+use DB;
+use Carbon\Carbon;
 use App\Models\Favourite;
 use App\Models\Page;
 use App\Models\Role;
@@ -59,15 +61,25 @@ class User extends Authenticatable
 
     public function hasRole($type)
     {
+        $userRoles = DB::table('roles')
+            ->select('type')
+            ->where('user_id', $this->id)
+            ->where(function ($query) {
+                $query->whereNull('expires_at')
+                    ->orWhere(function ($query) {
+                        $query->whereDate('expires_at', '>', Carbon::now()->toDateTimeString());
+                    });
+            });
+
         if (is_array($type))
         {
-            $roles = $this->roles()->active()->whereIn('type', $type);
+            $userRoles->whereIn('type', $type);
         }
         else
         {
-            $roles = $this->roles()->active()->type($type);
+            $userRoles->where('type', $type);
         }
-
-        return $roles->count() !== 0 ? true : false ;
+        
+        return $userRoles->count() !== 0 ? true : false ;
     }
 }

@@ -25,10 +25,13 @@
         {!! csrf_field() !!}
 
         <div class="form-group">
-            <label>
-                Title
-            </label>
-            <p class="form-control-static" name="title">{{ $page->title }}</p>
+            <div class="form-group col-sm-5">
+                <label>
+                    Title
+                </label>
+                <p class="form-control-static" name="title">{{ $page->title }}</p>
+            </div>
+            <redirects></redirects>
         </div>
 
         <div class="form-group">

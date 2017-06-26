@@ -25,10 +25,6 @@
             @endcan
         </nav>
     </header>
-    @if ($page->edits->last())
-        <p class="meta">Last edited {{ $page->edits->last()->created_at->diffForHumans() }} by <a
-                    href="/">{{ $page->edits->last()->user->name }}</a>.</p>
-    @endif
 
     <section id="page-text" class="clearfix">
             {!! $page->current_version->html !!}
@@ -71,4 +67,11 @@
             </tr>
         </tbody>
     </table>
+
+    @if ($page->edits->last())
+        <footer>
+            Last edited {{ $page->edits->last()->created_at->diffForHumans() }} by <a
+                    href="/">{{ $page->edits->last()->user->name }}</a>.
+        </footer>
+    @endif
 @endsection

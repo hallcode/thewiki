@@ -16,6 +16,9 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 
 Route::group(['prefix' => 'wiki'], function () {
+    // Index
+    Route::get('/', 'PageController@index');
+
     // Special Pages
     Route::get('/Special:home/edit', 'HomeController@edit')->name('home.edit');
     Route::post('/Special:home/edit', 'HomeController@store')->name('home.store');

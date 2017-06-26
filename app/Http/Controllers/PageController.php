@@ -48,7 +48,7 @@ class PageController extends Controller
             ->orderByDesc('count')
             ->paginate(50);
 
-        return view('special.needed', ['links' => $redlinks]);
+        return view('special.needed', ['links' => $redlinks, '_title' => 'Needed Pages']);
     }
 
     public function recent()
@@ -63,10 +63,12 @@ class PageController extends Controller
             ->whereNotNull('parent_id')
             ->groupBy(DB::Raw('`parent_type`, `parent_id`, `action`, `user_id`, `date`'))
             ->orderByDesc('latest_created_at')
+            ->limit(50)
             ->get();
 
         return view('special.recent', [
-            'all_changes' => $recentChanges
+            'all_changes' => $recentChanges,
+            '_title' => 'Recent Changes'
         ]);
     }
 
@@ -153,12 +155,12 @@ class PageController extends Controller
     {
         $page = Page::findByTitle($reference);
 
-        $this->authorize('view', $page);
-
-        if (Auth::user()->cannot('view', $page))
+        if ($page->count() === 0)
         {
-            return abort(404);
+            return $this->suggestCreate($reference);
         }
+
+        $this->authorize('view', $page);
 
         return view('page.show', [
             'page' => $page,
@@ -183,6 +185,8 @@ class PageController extends Controller
         {
             return $this->suggestCreate($reference);
         }
+
+        $this->authorize('view', $page);
 
         return view('page.edit', [
             'page' => $page,
@@ -261,6 +265,8 @@ class PageController extends Controller
 
     protected function suggestCreate($reference)
     {
+        $this->authorize('all', Page::class);
+
         $reference = str_replace('_', ' ', $reference);
 
         // There is no page by that name! Suggest the user creates a new one.
@@ -273,6 +279,7 @@ class PageController extends Controller
         return view('page.404', [
             'page' => $page,
             'linksFrom' => $interlinks,
+            '_title' => 'Missing Page ' . $reference
         ]);
     }
 

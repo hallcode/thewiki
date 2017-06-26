@@ -50,6 +50,12 @@ return [
 
     "permissions" => [
 
+        "lockout" => [
+            // List roles here which you would like to be locked out of the system
+            // A user with no roles will be locked out.
+            "blocked",
+        ],
+
         "user" => [
             // New users will be given the role "user" - if you wish to approve them before an action can be taken,
             // use the "approved" role in actions.

@@ -35,9 +35,8 @@
                                     @if ( $change->parent->wordCountChange($change->latest_created_at)  < 0)
                                         <span style="color: darkred">({{ $change->parent->wordCountChange($change->latest_created_at) }})</span>
                                     @elseif($change->parent->wordCountChange($change->latest_created_at)  === 0)
-                                        ({{ $change->parent->wordCountChange($change->latest_created_at)  }})
                                     @else
-                                        <span style="color: darkgreen">(+ {{ $change->parent->wordCountChange($change->latest_created_at) }})</span>
+                                        <span style="color: darkgreen">(+{{ $change->parent->wordCountChange($change->latest_created_at) }})</span>
                                     @endif
                                 @endif
 

@@ -15,9 +15,14 @@
     <header>
         <h1>Welcome to {{ config('app.name') }}</h1>
     </header>
-    @if ($edit)
-    <p class="meta">Last edited {{ $edit->created_at->diffForHumans() }} by <a href="/">{{ $edit->user->name }}</a>.</p>
-    @endif
 
-    {!! $welcome_text !!}
+    <div class="main">
+        {!! $welcome_text !!}
+    </div>
+
+    @if ($edit)
+        <footer>
+            Last edited {{ $edit->created_at->diffForHumans() }} by <a href="/">{{ $edit->user->name }}</a>.
+        </footer>
+    @endif
 @endsection
