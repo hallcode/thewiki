@@ -3,6 +3,7 @@
 namespace App\Parsers;
 
 use App\Models\Page;
+use App\Models\Redirect;
 
 class WikiParser extends \Parsedown
 {
@@ -50,8 +51,29 @@ class WikiParser extends \Parsedown
         if (preg_match('/\[\[(.+?)\]\]/', $excerpt['text'], $matches))
         {
             $page = Page::findByTitle($matches[1]);
-            $page->count() !== 0 ? $class = 'blue-link' : $class = 'red-link';
-            $page->count() !== 0 ? $link = route('page.show', ['reference' => $page->reference]) : $link = url('/wiki/' . str_replace(' ', '_', $matches[1]));
+
+            if ($page->count() !== 0)
+            {
+                $class = 'blue-link';
+                $link = route('page.show', ['reference' => $page->reference]);
+            }
+            else
+            {
+                // Check for redirects
+                $redirect = Redirect::where('title', $matches[1])->get();
+
+                if ($redirect->count() !== 0)
+                {
+                    $class = 'blue-link';
+                    $link = route('page.show', ['reference' => $redirect->first()->page->reference]);
+                }
+                else
+                {
+                    $class = 'red-link';
+                    $link = url('/wiki/' . str_replace(' ', '_', $matches[1]));
+                }
+            }
+
 
             return [
                 'extent' => strlen($matches[0]),

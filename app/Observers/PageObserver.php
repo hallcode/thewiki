@@ -7,6 +7,7 @@ use App\Models\Edit;
 use App\Models\Interlink;
 use App\Models\Page;
 
+use App\Models\Redirect;
 use Auth;
 use DB;
 
@@ -46,7 +47,25 @@ class PageObserver
                     // The link is not listed in the interlinks table, so create it.
                     // Find out if the page exists.
                     $target_page = Page::findByTitle($link_text);
-                    $target_page->count() !== 0 ? $target_page_id = $target_page->id : $target_page_id = null;
+
+                    if ($target_page->count() !== 0)
+                    {
+                        $target_page_id = $target_page->id;
+                    }
+                    else
+                    {
+                        // Check for redirects
+                        $target_redirects = Redirect::where('title', $link_text)->get();
+
+                        if ($target_redirects->count() !== 0)
+                        {
+                            $target_page_id = $target_redirects->first()->page_id;
+                        }
+                        else
+                        {
+                            $target_page_id = null;
+                        }
+                    }
 
                     // Save to DB
                     Interlink::firstOrCreate(
