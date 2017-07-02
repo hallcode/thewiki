@@ -21805,7 +21805,7 @@ window.Vue = __webpack_require__(58);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('redirects', __webpack_require__(71));
+Vue.component('redirects', __webpack_require__(55));
 
 var app = new Vue({
   el: '#app'
@@ -22661,7 +22661,83 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 34 */,
+/* 34 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ["pageId"],
+    data: function data() {
+        return {
+            redirects: [],
+            new_redirect: ""
+        };
+    },
+    methods: {
+        addNewRedirect: function addNewRedirect() {
+            var self = this;
+            $('#saveRedirect').prop('disabled', true);
+
+            $.post('/ajax/redirect/' + this.pageId + '/' + this.new_redirect).done(function (data, status) {
+                var newRedir = JSON.parse(data);
+                self.redirects.push({
+                    "id": newRedir.id,
+                    "title": newRedir.title
+                });
+            });
+
+            this.new_redirect = "";
+            $('#saveRedirect').prop('disabled', false);
+        },
+        deleteRedirect: function deleteRedirect(index) {
+            var redirect = this.redirects[index];
+            this.redirects.splice(index, 1);
+
+            if (redirect.id !== null) {
+                $.post('/ajax/redirect/delete/' + redirect.id);
+            }
+        }
+    },
+    mounted: function mounted() {
+        var self = this;
+
+        $.get('/ajax/redirect/' + this.pageId).done(function (data) {
+            $.each(JSON.parse(data), function (index, value) {
+                self.redirects.push({
+                    "id": value.id,
+                    "title": value.title
+                });
+            });
+        });
+    }
+});
+
+/***/ }),
 /* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -55119,7 +55195,40 @@ if (true) {
 /* WEBPACK VAR INJECTION */}.call(exports, "/", __webpack_require__(39).Buffer))
 
 /***/ }),
-/* 55 */,
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(56)(
+  /* script */
+  __webpack_require__(34),
+  /* template */
+  __webpack_require__(57),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Applications/MAMP/htdocs/thewiki/resources/assets/js/components/Redirects.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Redirects.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-71b4e21e", Component.options)
+  } else {
+    hotAPI.reload("data-v-71b4e21e", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
 /* 56 */
 /***/ (function(module, exports) {
 
@@ -55177,7 +55286,81 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 57 */,
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "form-group col-sm-7"
+  }, [_c('label', [_vm._v("\n        Redirects\n    ")]), _vm._v(" "), _c('p', {
+    staticClass: "help-block"
+  }, [_vm._v("Add titles that will redirect users to this page.")]), _vm._v(" "), _c('div', {
+    staticClass: "input-group"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.new_redirect),
+      expression: "new_redirect"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "id": "new_redirect"
+    },
+    domProps: {
+      "value": (_vm.new_redirect)
+    },
+    on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        $event.preventDefault();
+        _vm.addNewRedirect()
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.new_redirect = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "input-group-btn"
+  }, [_c('a', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "id": "saveRedirect"
+    },
+    on: {
+      "click": function($event) {
+        _vm.addNewRedirect()
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-fw fa-plus"
+  })])])]), _vm._v(" "), _c('p'), _vm._v(" "), _c('ul', _vm._l((_vm.redirects), function(redirect, index) {
+    return _c('li', [_vm._v("\n            " + _vm._s(redirect.title) + " "), _c('a', {
+      staticClass: "red-link",
+      attrs: {
+        "href": "#!"
+      },
+      on: {
+        "click": function($event) {
+          _vm.deleteRedirect(index)
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fa fa-fw fa-times"
+    })])])
+  }))])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-71b4e21e", module.exports)
+  }
+}
+
+/***/ }),
 /* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -64546,145 +64729,6 @@ module.exports = function(module) {
 __webpack_require__(14);
 module.exports = __webpack_require__(15);
 
-
-/***/ }),
-/* 62 */,
-/* 63 */,
-/* 64 */,
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            redirects: ["Test", "Another Test"],
-            new_redirect: ""
-        };
-    }
-});
-
-/***/ }),
-/* 71 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(56)(
-  /* script */
-  __webpack_require__(70),
-  /* template */
-  __webpack_require__(72),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Applications/MAMP/htdocs/thewiki/resources/assets/js/components/Redirects.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Redirects.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-71b4e21e", Component.options)
-  } else {
-    hotAPI.reload("data-v-71b4e21e", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 72 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "form-group col-sm-7"
-  }, [_c('label', [_vm._v("\n        Redirects\n    ")]), _vm._v(" "), _c('p', [_vm._v("Add titles that will redirect users to this page.")]), _vm._v(" "), _c('div', {
-    staticClass: "input-group"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.new_redirect),
-      expression: "new_redirect"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      "id": "new_redirect"
-    },
-    domProps: {
-      "value": (_vm.new_redirect)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.new_redirect = $event.target.value
-      }
-    }
-  }), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('br'), _vm._v(" "), _c('ul', _vm._l((_vm.redirects), function(redirect) {
-    return _c('li', [_vm._v("\n            " + _vm._s(redirect) + " "), _vm._m(1, true)])
-  }))])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "input-group-btn"
-  }, [_c('a', {
-    staticClass: "btn btn-success"
-  }, [_c('i', {
-    staticClass: "fa fa-fw fa-plus"
-  })])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('a', {
-    staticClass: "red-link",
-    attrs: {
-      "href": "!#"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-fw fa-times"
-  })])
-}]}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-71b4e21e", module.exports)
-  }
-}
 
 /***/ })
 /******/ ]);

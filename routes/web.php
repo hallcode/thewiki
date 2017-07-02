@@ -37,5 +37,11 @@ Route::group(['prefix' => 'wiki'], function () {
 });
 
 Route::group(['prefix' => 'ajax'], function () {
+    // Category
     Route::get('/category/search', 'Ajax\CategoryController@search');
+
+    // Page Redirects
+    Route::get('/redirect/{page}', 'Ajax\RedirectController@get');
+    Route::post('/redirect/delete/{redirect}', 'Ajax\RedirectController@delete');
+    Route::post('/redirect/{page}/{title}', 'Ajax\RedirectController@add');
 });

@@ -77,6 +77,23 @@
     $.fn.select2.defaults.set("theme", "bootstrap");
     $('select.select2').select2();
 </script>
+<script>
+    $(document).ready(function() {
+        $(document).on('keyup keypress', 'form input[type="text"]', function(e) {
+            if(e.which == 13) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    });
+</script>
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
 @yield('script')
 </body>
 </html>

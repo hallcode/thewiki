@@ -31,7 +31,7 @@
                 </label>
                 <p class="form-control-static" name="title">{{ $page->title }}</p>
             </div>
-            <redirects></redirects>
+            <redirects page-id="{{ $page->id }}"></redirects>
         </div>
 
         <div class="form-group">

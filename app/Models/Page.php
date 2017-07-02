@@ -70,6 +70,11 @@ class Page extends Model
         return $this->hasMany(Interlink::class, 'target_page_id');
     }
 
+    public function redirects()
+    {
+        return $this->hasMany(Redirect::class);
+    }
+
     public function setTitleAttribute($value)
     {
         $this->attributes['title'] = ucfirst($value);
