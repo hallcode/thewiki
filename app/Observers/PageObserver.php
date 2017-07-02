@@ -63,6 +63,7 @@ class PageObserver
             {
                 $old_link->delete();
             }
+
         }
     }
 

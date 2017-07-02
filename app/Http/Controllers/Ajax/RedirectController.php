@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Ajax;
 
 use App\Models\Page;
+use DB;
 use App\Models\Redirect;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -28,6 +29,13 @@ class RedirectController extends Controller
             $redirect->title = $title;
             $page->redirects()->save($redirect);
 
+            // Update interlink table
+            DB::table('interlinks')
+                ->where('link_reference', $redirect->title)
+                ->update([
+                    'target_page_id' => $page->id
+                ]);
+
             return response($redirect->toJson(), 201);
         }
 
@@ -36,6 +44,13 @@ class RedirectController extends Controller
 
     public function delete(Redirect $redirect)
     {
+        // Clear any redirects from interlinks table
+        DB::table('interlinks')
+            ->where('link_reference', $redirect->title)
+            ->update([
+                'target_page_id' => null
+            ]);
+
         $redirect->delete();
 
         return response("Redirect deleted.", 200);

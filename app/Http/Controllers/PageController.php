@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Edit;
 use App\Models\Interlink;
 use App\Models\Page;
+use App\Models\Redirect;
 use DB;
 use Auth;
 use Illuminate\Http\Request;
@@ -46,7 +47,7 @@ class PageController extends Controller
             ->whereNull('target_page_id')
             ->groupBy('link_reference')
             ->orderByDesc('count')
-            ->paginate(50);
+            ->paginate(40);
 
         return view('special.needed', ['links' => $redlinks, '_title' => 'Needed Pages']);
     }
@@ -63,7 +64,7 @@ class PageController extends Controller
             ->whereNotNull('parent_id')
             ->groupBy(DB::Raw('`parent_type`, `parent_id`, `action`, `user_id`, `date`'))
             ->orderByDesc('latest_created_at')
-            ->limit(50)
+            ->limit(40)
             ->get();
 
         return view('special.recent', [
@@ -157,6 +158,14 @@ class PageController extends Controller
 
         if ($page->count() === 0)
         {
+            // Check redirects
+            $redirect = Redirect::where('title', $reference)->get();
+
+            if ($redirect->count() !== 0)
+            {
+                return redirect(route('page.show', ['reference' => $redirect->first()->page->reference]));
+            }
+
             return $this->suggestCreate($reference);
         }
 
