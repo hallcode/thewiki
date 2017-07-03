@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Parsers\SectionParser;
 use App\Parsers\WikiParser;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
@@ -54,5 +55,12 @@ class Version extends Model
     {
         return $query->where('created_at', '<=', $time)
             ->latest();
+    }
+
+    public function getSectionsAttribute()
+    {
+        $sectionParser = new SectionParser($this->markdown);
+
+        return $sectionParser->sections;
     }
 }

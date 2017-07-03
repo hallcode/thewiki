@@ -93,6 +93,17 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+    $('.collapse').collapse({
+        toggle: false
+    });
+</script>
+<script>
+    $('#contentsList').on('hidden.bs.collapse', function () {
+        $('#toggleContentsButton').html('Show')
+    });
+    $('#contentsList').on('shown.bs.collapse', function () {
+        $('#toggleContentsButton').html('Hide')
+    })
 </script>
 @yield('script')
 </body>

@@ -4,6 +4,14 @@
   padding: 1rem;
   margin: 0.5rem 0.2rem;
 
+  &.squashed {
+    display: inline-block;
+
+    @media (max-width: 860px) {
+      display: block;
+    }
+  }
+
   &.red {
     border: 1px solid darken($brand-red, 20%);
     border-left: 8px solid $brand-red;
@@ -46,6 +54,23 @@
 
     > .icon {
       color: $brand-purple;
+    }
+  }
+
+  &#contents {
+    header {
+      text-align: center;
+      margin-bottom: 1rem;
+      font-weight: bold;
+
+      a {
+        font-weight: 300;
+      }
+    }
+
+    ol {
+      padding-left: 2.75rem;
+      margin-right: 2.75rem;
     }
   }
 }
