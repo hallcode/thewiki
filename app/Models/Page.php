@@ -75,6 +75,11 @@ class Page extends Model
         return $this->hasMany(Redirect::class);
     }
 
+    public function getInfoboxAttribute()
+    {
+        return new Infobox($this->attributes['infobox']);
+    }
+
     public function setTitleAttribute($value)
     {
         $this->attributes['title'] = ucfirst($value);
@@ -92,7 +97,8 @@ class Page extends Model
             'Page' => route('page.show', ['reference' => $this->reference]),
             'Talk' => '#',
             'Data' => '#',
-            'Attachments' => '#'
+            'Attachments' => '#',
+            'InfoBox' => '#'
         ];
     }
 

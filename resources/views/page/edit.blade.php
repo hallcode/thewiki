@@ -21,7 +21,7 @@
         </nav>
     </header>
 
-    <form id="edit_form" method="post" action="{{ route('page.update', ['reference' => $page->reference]) }}">
+    <form v-pre id="edit_form" method="post" action="{{ route('page.update', ['reference' => $page->reference]) }}">
         {!! csrf_field() !!}
 
         <div class="form-group">

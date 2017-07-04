@@ -124,3 +124,146 @@ table.info-box {
     }
   }
 }
+
+
+.wiki-box.sidebar {
+  max-width: 280px;
+  float: right;
+  margin: 0 0 8px 8px;
+  box-shadow: -8px 8px 0px #fff;
+
+  > section[data-layout="header"] {
+    padding: 3px 8px;
+    text-align: center;
+
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 0;
+    }
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  > section {
+    margin-bottom: 0.6rem;
+    > header {
+      padding: 1px 0;
+      grid-column-start: 1;
+      grid-column-end: 3;
+      text-align: center;
+      font-weight: bold;
+      background-color: $laravel-border-color;
+
+      &.subheader {
+        background-color: lighten($laravel-border-color, 15%);
+
+      }
+    }
+
+    &.red {
+      > header {
+        background-color: $brand-red;
+
+        &.subheader {
+          background-color: lighten($brand-red, 15%);
+        }
+      }
+    }
+
+    &.blue {
+      > header {
+        background-color: $brand-blue;
+
+        &.subheader {
+          background-color: lighten($brand-blue, 15%);
+        }
+      }
+    }
+
+    &.green {
+      > header {
+        background-color: $brand-green;
+
+        &.subheader {
+          background-color: lighten($brand-green, 15%);
+        }
+      }
+    }
+
+    &.yellow {
+      > header {
+        background-color: $brand-yellow;
+
+        &.subheader {
+          background-color: lighten($brand-yellow, 15%);
+        }
+      }
+    }
+
+    &.purple {
+      > header {
+        background-color: $brand-purple;
+
+        &.subheader {
+          background-color: lighten($brand-purple, 15%);
+        }
+      }
+    }
+  }
+
+  > section[data-layout="normal"] {
+    display: grid;
+    grid-row-gap: 4px;
+    grid-column-gap: 2px;
+    grid-template-columns: auto auto;
+    font-size: 95%;
+
+    > .key {
+      grid-column-start: 1;
+      font-weight: bold;
+      padding-left: 2px;
+    }
+
+    > .value {
+      grid-column-start: 2;
+      padding-right: 2px;
+    }
+
+    .stretch {
+      grid-column-start: 1;
+      grid-column-end: 3;
+      text-align: center;
+    }
+  }
+
+  > section[data-layout="split"] {
+    display: grid;
+    grid-column-gap: 2px;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-flow: dense;
+    font-size: 95%;
+
+    > header {
+      margin: 4px 0;
+    }
+
+    > .left {
+      grid-column-start: 1;
+      grid-column-end: 2;
+      border-right: 1px dotted grey;
+      padding: 2px
+    }
+
+    > .right {
+      grid-column-start: 2;
+      grid-column-end: 3;
+      padding: 2px;
+    }
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}

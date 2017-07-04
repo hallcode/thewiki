@@ -163,6 +163,7 @@ class PageController extends Controller
 
             if ($redirect->count() !== 0)
             {
+                $request->session()->flash('redirectedFrom', $reference);
                 return redirect(route('page.show', ['reference' => $redirect->first()->page->reference]));
             }
 
