@@ -98,7 +98,7 @@ class Page extends Model
             'Talk' => '#',
             'Data' => '#',
             'Attachments' => '#',
-            'InfoBox' => '#'
+            'InfoBox' => route('infobox.edit', ['reference' => $this->reference]),
         ];
     }
 

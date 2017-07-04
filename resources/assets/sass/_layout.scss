@@ -266,3 +266,9 @@ form {
     color: darken($brand-grey, 26.7%);
   }
 }
+
+.cm-s-elegant.CodeMirror {
+  height: auto !important;
+  padding: 0;
+  border-radius: $border-radius-base;
+}

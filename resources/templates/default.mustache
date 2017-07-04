@@ -2,6 +2,6 @@
     <header>{{ header }}</header>
     {{# keys }}
         <div class="key">{{ key }}</div>
-        <div class="value">{{ value }}</div>
+        {{# value }}<div class="value">{{ . }}</div>{{/ value }}
     {{/keys}}
 </section>

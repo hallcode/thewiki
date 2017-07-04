@@ -33,10 +33,15 @@ Route::group(['prefix' => 'wiki'], function () {
     Route::get('/{reference}', 'PageController@show')->name('page.show');
     Route::get('/{reference}/create', 'PageController@create')->name('page.createWithReference');
     Route::get('/{reference}/edit', 'PageController@edit')->name('page.edit');
+    Route::get('/{reference}/infobox', 'InfoboxController@edit')->name('infobox.edit');
+    Route::post('/{reference}/infobox', 'InfoboxController@save')->name('infobox.save');
     Route::post('/{reference}', 'PageController@update')->name('page.update');
 });
 
 Route::group(['prefix' => 'ajax'], function () {
+    // Infobox preview
+    Route::post('/infobox', 'InfoboxController@preview');
+
     // Category
     Route::get('/category/search', 'Ajax\CategoryController@search');
 
