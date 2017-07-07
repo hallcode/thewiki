@@ -55,7 +55,8 @@
             theme: 'elegant',
             smartIndent: true,
             lineNumbers: true,
-            viewportMargin: Infinity
+            viewportMargin: Infinity,
+            indentWithTabs: false
         });
 
         yamlEditor.on('change', _.debounce(function () {

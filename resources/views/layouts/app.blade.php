@@ -13,7 +13,7 @@
                 <div id="tabs">
                     <nav>
                         <div class="active mobile-only dropdown">
-                            <a href="!#" class="dropdown-toggle" type="button" id="mainMenu" data-toggle="dropdown"
+                            <a href="#!" class="dropdown-toggle" type="button" id="mainMenu" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="true">
                                 <i class="fa fa-fw fa-bars"></i> Menu
                             </a>
@@ -32,7 +32,7 @@
                     </nav>
                     <nav>
                         <div class="active mobile-only dropdown">
-                            <a href="!#" class="dropdown-toggle" type="button" id="actionsMenu" data-toggle="dropdown"
+                            <a href="#!" class="dropdown-toggle" type="button" id="actionsMenu" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="true">
                                 Actions
                                 <span class="caret"></span>
@@ -71,6 +71,7 @@
 
 
 <!-- Scripts -->
+<script type="text/javascript" src="/DataTables/datatables.min.js"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 <script>
@@ -98,10 +99,10 @@
     });
 </script>
 <script>
-    $('#contentsList').on('hidden.bs.collapse', function () {
+    $('#contentsList').on('hide.bs.collapse', function () {
         $('#toggleContentsButton').html('Show')
     });
-    $('#contentsList').on('shown.bs.collapse', function () {
+    $('#contentsList').on('show.bs.collapse', function () {
         $('#toggleContentsButton').html('Hide')
     })
 </script>

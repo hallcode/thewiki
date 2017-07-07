@@ -42,43 +42,41 @@
         @endforeach
     </section>
 
-    <table class="info-box">
-        <thead>
-            <tr>
-                <th colspan="2">
-                    Page Info
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th>Categories ({{ $page->categories->count() }})</th>
-                <td>
-                    @foreach ($page->categories as $category)
-                        <a href="#">{{ $category->title }}</a>@if(!$loop->last) • @endif
-                    @endforeach
-                </td>
-            </tr>
-            <tr>
-                <th>Links to ({{ $page->links_to->count() }})</th>
-                <td>
-                    @foreach ($page->links_to as $link)
+    <section id="page-info">
+        <h3>Page Info</h3>
+        @if ($page->categories->count() > 0)
+            <p>Categories ({{ $page->categories->count() }})</p>
+            <ul>
+                @foreach ($page->categories as $category)
+                    <li>
+                        <a href="#">{{ $category->title }}</a>
+                    </li>
+                @endforeach
+            </ul>
+        @endif
+        @if ($page->links_to->count() > 0)
+            <p>Links to ({{ $page->links_to->count() }})</p>
+            <ul>
+                @foreach ($page->links_to as $link)
+                    <li>
                         <a href="{{ route('page.show', ['reference' => $link->link_reference]) }}" class="{{ ( $link->target_page_id !== null ? 'blue-link' : 'red-link') }}">
                             {{ $link->link_reference }}
-                        </a>@if(!$loop->last) • @endif
-                    @endforeach
-                </td>
-            </tr>
-            <tr>
-                <th>Linked from ({{ $page->linked_from->count() }})</th>
-                <td>
-                    @foreach ($page->linked_from as $link)
-                        <a href="{{ route('page.show', ['reference' => $link->page->reference]) }}" class="blue-link">{{ $link->page->title }}</a>@if(!$loop->last) • @endif
-                    @endforeach
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+        @endif
+        @if ($page->linked_from->count() > 0)
+            <p>Links from ({{ $page->linked_from->count() }})</p>
+            <ul>
+                @foreach ($page->linked_from as $link)
+                    <li>
+                        <a href="{{ route('page.show', ['reference' => $link->page->reference]) }}" class="blue-link">{{ $link->page->title }}</a>
+                    </li>
+                @endforeach
+            </ul>
+        @endif
+    </section>
 
     @if ($page->edits->last())
         <footer>

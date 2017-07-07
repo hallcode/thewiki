@@ -86,51 +86,31 @@ div.info-box {
   margin: 0.5rem 0.2rem;
 }
 
-table.info-box {
-  width: 100%;
-  background-color: whitesmoke;
-  border: 1px solid darken(whitesmoke, 20%);
-  border-collapse: separate;
-  border-spacing: 3px;
-
-  td, th {
-    padding: 3pt 6pt;
-  }
-
-  thead {
-    tr {
-      background-color: darken($brand-info, 5%);
-      color: #fff;
-
-      th {
-        text-align: center;
-      }
-    }
-  }
-
-  tbody {
-    th {
-      background-color: lighten($brand-info, 15%);
-      color: darken($brand-info, 40%);
-      width: 200px;
-    }
-
-    tr:nth-child(even) {
-      background-color: darken(whitesmoke, 5%);
-
-      th {
-        background-color: lighten($brand-info, 10%);
-      }
-    }
-  }
-}
-
-
 .wiki-box.sidebar {
   max-width: 280px;
   float: right;
   margin: 0 0 8px 8px;
   box-shadow: -8px 8px 0px #fff;
+
+  img {
+    max-height: 225px;
+    max-width: 100%;
+  }
+
+  @media (max-width: 700px) {
+    float:none;
+    width: 100%;
+    max-width: 100%;
+    display: block;
+    margin: 0;
+    box-shadow: none;
+    margin-bottom: 1.8rem;
+
+    img {
+      max-height: 200px;
+      width: auto;
+    }
+  }
 
   > section[data-layout="header"] {
     padding: 3px 8px;
@@ -153,60 +133,70 @@ table.info-box {
       grid-column-end: 3;
       text-align: center;
       font-weight: bold;
-      background-color: $laravel-border-color;
+      background-color: #E6E6FA;
 
       &.subheader {
-        background-color: lighten($laravel-border-color, 15%);
+        background-color: lighten(#E6E6FA, 15%);
 
       }
     }
 
     &.red {
       > header {
-        background-color: $brand-red;
+        background-color: #F08080;
 
         &.subheader {
-          background-color: lighten($brand-red, 15%);
+          background-color: lighten(#F08080, 20%);
         }
       }
     }
 
     &.blue {
       > header {
-        background-color: $brand-blue;
+        background-color: #AFEEEE;
 
         &.subheader {
-          background-color: lighten($brand-blue, 15%);
+          background-color: lighten(#AFEEEE, 20%);
         }
       }
     }
 
     &.green {
       > header {
-        background-color: $brand-green;
+        background-color: #98FB98;
 
         &.subheader {
-          background-color: lighten($brand-green, 15%);
+          background-color: lighten(#98FB98, 20%);
         }
       }
     }
 
     &.yellow {
       > header {
-        background-color: $brand-yellow;
+        background-color: #EEE8AA;
 
         &.subheader {
-          background-color: lighten($brand-yellow, 15%);
+          background-color: lighten(#EEE8AA, 20%);
         }
       }
     }
 
     &.purple {
       > header {
-        background-color: $brand-purple;
+        background-color: #DDA0DD;
 
         &.subheader {
-          background-color: lighten($brand-purple, 15%);
+          background-color: lighten(#DDA0DD, 20%);
+        }
+      }
+    }
+
+    &.tan {
+      > header {
+        background-color: #D2B48C;
+
+        &.subheader {
+          background-color: lighten(#D2B48C, 20%);
         }
       }
     }
@@ -260,10 +250,5 @@ table.info-box {
       grid-column-end: 3;
       padding: 2px;
     }
-  }
-
-  img {
-    max-width: 100%;
-    height: auto;
   }
 }
