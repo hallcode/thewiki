@@ -43,7 +43,7 @@
     </section>
 
     <section id="page-info">
-        <h3>Page Info</h3>
+        <h3 class="light">Page Info</h3>
         @if ($page->categories->count() > 0)
             <p>Categories ({{ $page->categories->count() }})</p>
             <ul>
