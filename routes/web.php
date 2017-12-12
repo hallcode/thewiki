@@ -38,6 +38,10 @@ Route::group(['prefix' => 'wiki'], function () {
     Route::post('/{reference}', 'PageController@update')->name('page.update');
 });
 
+Route::group(['prefix' => 'settings', 'middleware' => 'auth'], function () {
+    Route::get('/users', 'UserController@index')->name('set.users');
+});
+
 Route::group(['prefix' => 'ajax'], function () {
     // Infobox preview
     Route::post('/infobox', 'InfoboxController@preview');

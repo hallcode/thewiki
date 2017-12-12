@@ -8,18 +8,17 @@ return [
             "All Pages" => "/wiki/Special:all",
             "Random Page" => '/wiki/Special:random',
             "Recent Changes" => "/wiki/Special:recent",
-            "Needed Pages" => "/wiki/Special:needed"
+            "Needed Pages" => "/wiki/Special:needed",
+            "All Categories" => "/wiki/Special:categories",
+            "Archive" => "/archive",
+            "Historical Events" => "/history",
         ]
     ],
 
     [
-        "title" => "Modules",
+        "title" => "Settings",
         "links" => [
-            "Pages" => "/wiki/Special:all",
-            "Categories" => "/wiki/Special:categories",
-            "Archive" => "/archive",
-            "Historical Events" => "/history",
-            "Users" => "/users"
+            "Users" => "settings/users"
         ]
     ],
 

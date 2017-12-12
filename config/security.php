@@ -53,18 +53,19 @@ return [
         "lockout" => [
             // List roles here which you would like to be locked out of the system
             // A user with no roles will be locked out.
-            "blocked",
+            "banned",
         ],
 
         "user" => [
-            // New users will be given the role "user" - if you wish to approve them before an action can be taken,
-            // use the "approved" role in actions.
+            // New users will be given the role "new" - if you wish to approve them before an action can be taken,
+            // use the "confirmed" role in actions.
             // Do not set a role here, just true or false.
             "register" => true,
 
-            // Set a user role or false to prevent management of roles.
+            // Set a user role, or false to prevent management of roles.
             "manage" => "administrator",
 
+            "edit_own" => "confirmed",
             "delete" => false,
         ],
 
