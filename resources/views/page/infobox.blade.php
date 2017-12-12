@@ -31,6 +31,9 @@
                     <p>
                         You can write the Infobox here using YAML.
                     </p>
+                    <p>
+                        <strong>Do not use tabs!</strong> Instead, use four spaces. If you use tabs, things will break.
+                    </p>
                     <textarea id="yaml-editor" name="yaml" style="height: auto">{{ $page->infobox->yaml }}</textarea>
                 </div>
             </div>

@@ -77,7 +77,9 @@ class Page extends Model
 
     public function getInfoboxAttribute()
     {
-        return new Infobox($this->attributes['infobox']);
+        $infoboxDecrypted = decrypt($this->attributes['infobox']);
+
+        return new Infobox($infoboxDecrypted);
     }
 
     public function setTitleAttribute($value)
