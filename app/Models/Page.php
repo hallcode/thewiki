@@ -8,6 +8,8 @@ use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Contracts\Encryption\DecryptException;
+
 class Page extends Model
 {
     use SoftDeletes;
@@ -73,6 +75,11 @@ class Page extends Model
     public function redirects()
     {
         return $this->hasMany(Redirect::class);
+    }
+
+    public function setInfoboxAttribute($value)
+    {
+        $this->attributes['infobox'] = encrypt($value);
     }
 
     public function getInfoboxAttribute()

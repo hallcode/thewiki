@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use DB;
 
+use Illuminate\Contracts\Encryption\DecryptException;
+
 class Version extends Model
 {
     use SoftDeletes;
@@ -45,9 +47,23 @@ class Version extends Model
         return $parser->parse($this->markdown);
     }
 
+    public function getMarkdownAttribute()
+    {
+        // Try to decrypt, if it fails, return raw string
+        // This is a dev thing, remove in prod
+        try
+        {
+            return decrypt($this->attributes['markdown']);
+        }
+        catch (DecryptException $e)
+        {
+            return $this->attributes['markdown'];
+        }
+    }
+
     public function setMarkdownAttribute($value)
     {
-        $this->attributes['markdown'] = strip_tags($value);
+        $this->attributes['markdown'] = encrypt(strip_tags($value));
         $this->attributes['word_count'] = str_word_count($value);
     }
 
