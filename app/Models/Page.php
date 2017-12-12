@@ -77,9 +77,19 @@ class Page extends Model
 
     public function getInfoboxAttribute()
     {
-        $infoboxDecrypted = decrypt($this->attributes['infobox']);
+        // Try to decrypt, if it fails, return raw string
+        // This is a dev thing, remove in prod
+        try
+        {
+            $infoboxDecrypted = decrypt($this->attributes['infobox']);
+            return new Infobox($infoboxDecrypted);
+        }
+        catch (DecryptException $e)
+        {
+            return new Infobox($this->attributes['infobox']);
+        }
 
-        return new Infobox($infoboxDecrypted);
+
     }
 
     public function setTitleAttribute($value)
