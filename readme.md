@@ -5,3 +5,13 @@ This is in the early stages, pre-alpha.
 
 ## Todo:
 * Write readme.md
+
+# Installation
+
+If you do wish to install, you can do so with composer by running
+
+~~~~
+composer create-project hallcode/thewiki
+~~~~
+
+in your terminal.
