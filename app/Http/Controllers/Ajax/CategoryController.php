@@ -10,18 +10,12 @@ class CategoryController extends Controller
 {
     public function search(Request $request)
     {
-        $categories = Category::where('title', 'like', '%' . $request->q . '%')
+        $categories = Category::where('title', 'like', '%' . $request->term . '%')
             ->addSelect('id', 'title as text')
             ->limit(20)
+            ->orderBy('text')
             ->get();
 
-        $results['results'][] = [];
-
-        foreach($categories as $cat)
-        {
-            $results['results'][] = $cat['attributes'];
-        }
-
-        return json_encode($results);
+        return response()->json(["results" => $categories]);
     }
 }

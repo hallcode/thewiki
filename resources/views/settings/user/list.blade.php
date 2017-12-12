@@ -13,6 +13,11 @@
 @section('content')
     <header>
         <h1>Users</h1>
+        <nav>
+            <a class="btn btn-success" href="#!">
+                <i class="fa fa-fw fa-plus"></i> Create User
+            </a>
+        </nav>
     </header>
 
     <div class="main">
@@ -20,7 +25,6 @@
             This page shows a list of users.
         </p>
 
-        <p>
         <table>
             <thead>
             <tr>
@@ -45,10 +49,5 @@
             @endforeach
             </tbody>
         </table>
-        </p>
-
-        <p>
-            <a href="#!" class="btn btn-primary">Create User</a>
-        </p>
     </div>
 @endsection

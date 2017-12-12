@@ -73,7 +73,7 @@
                 minimumInputLength: 2,
             }
 
-        })
+        });
 
         $(window).resize(function () {
             $('.select2').css('width', '100%');
