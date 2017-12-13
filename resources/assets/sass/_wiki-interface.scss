@@ -1,0 +1,39 @@
+.user-tag {
+  $base-color: $gray-light;
+
+  text-transform: uppercase;
+  font-size: 0.8em;
+  color: $base-color;
+  background-color: lighten($base-color, 40%);
+  border: 1px solid darken(lighten($base-color, 40%), 10%);
+  border-radius: $border-radius-base;
+  padding: 0.25em 0.4em;
+
+  &.administrator {
+    $base-color: $brand-yellow;
+    color: darken($base-color, 33%);
+    background-color: lighten($base-color, 20%);
+    border: 1px solid darken(lighten($base-color, 33%), 20%);
+  }
+
+  &.moderator {
+    $base-color: $brand-blue;
+    color: darken($base-color, 33%);
+    background-color: lighten($base-color, 20%);
+    border: 1px solid darken(lighten($base-color, 33%), 20%);
+  }
+
+  &.confirmed, .auto-confirmed {
+    $base-color: $brand-green;
+    color: darken($base-color, 33%);
+    background-color: lighten($base-color, 20%);
+    border: 1px solid darken(lighten($base-color, 33%), 20%);
+  }
+
+  &.banned {
+    $base-color: $brand-red;
+    color: darken($base-color, 33%);
+    background-color: lighten($base-color, 20%);
+    border: 1px solid darken(lighten($base-color, 33%), 20%);
+  }
+}

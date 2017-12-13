@@ -47,6 +47,7 @@ class PageController extends Controller
             ->whereNull('target_page_id')
             ->groupBy('link_reference')
             ->orderByDesc('count')
+            ->orderBy('link_reference')
             ->paginate(40);
 
         return view('special.needed', ['links' => $redlinks, '_title' => 'Needed Pages']);

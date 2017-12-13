@@ -39,7 +39,7 @@
                     <td>{{ $user->name }}</td>
                     <td>
                         @foreach($user->roles as $role)
-                            <span class="badge badge-dark">{{ strtoupper($role->type) }}</span>
+                            <span class="user-tag {{ $role->type }}">{{ $role->type }}</span>
                         @endforeach
                     </td>
                     <td>

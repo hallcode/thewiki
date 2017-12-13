@@ -36,7 +36,7 @@
         @foreach ($page->current_version->sections as $section)
             {!! $section->renderHTML() !!}
 
-            @if ($loop->first && $page->current_version->sections->count() + $page->current_version->sections->pluck('children')->flatten()->count() >= 4)
+            @if ($loop->first && $page->current_version->sections->count() + $page->current_version->sections->pluck('children')->flatten()->count() > 4)
                 @include('page.blocks.contents')
             @endif
         @endforeach
