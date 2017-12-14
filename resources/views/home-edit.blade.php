@@ -6,7 +6,7 @@
 @endsection
 
 @section('rightTabs')
-    <a href="{{ route('resource', ['namespace' => 'Special', "reference" => "home"]) }}" class="tab">Read</a>
+    <a href="{{ route('home') }}" class="tab">Read</a>
     <a href="{{ route('home.edit') }}" class="active tab">Edit</a>
 @endsection
 
@@ -15,7 +15,7 @@
         <h1>Edit: Welcome to {{ config('app.name') }}</h1>
         <nav>
             <button class="btn btn-primary" form="edit_form">Save</button>
-            <a class="btn btn-default" href="{{ route('resource', ['namespace' => 'special', 'reference' => 'home']) }}">Back</a>
+            <a class="btn btn-default" href="{{ route('home') }}">Back</a>
         </nav>
     </header>
 
@@ -35,7 +35,7 @@
 
         <div class="form-group left-align">
             <button class="btn btn-primary">Save</button>
-            <a class="btn btn-default" href="{{ route('resource', ['namespace' => 'special', 'reference' => 'home']) }}">Back</a>
+            <a class="btn btn-default" href="{{ route('home') }}">Back</a>
         </div>
     </form>
 @endsection

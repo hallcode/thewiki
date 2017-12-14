@@ -24,11 +24,11 @@
                             @if (is_a($change->parent, 'App\Models\Page'))
 
                                 @if ($change->action == 'created')
-                                    Page <a href="{{ route('page.show', ['reference' => $change->parent->reference]) }}">{{ $change->parent->title }}</a>
+                                    <a href="{{ route('page.show', ['reference' => $change->parent->combinedReference]) }}">{{ $change->parent->combinedTitle }}</a>
                                     was created at <strong>{{ date('H:i', strtotime($change->latest_created_at)) }}</strong>
                                 @else
-                                    (diff | hist) . .
-                                    <a href="{{ route('page.show', ['reference' => $change->parent->reference]) }}">{{ $change->parent->title }}</a>;
+                                    (<a href="">diff</a> | <a href="">hist</a>) . .
+                                    <a href="{{ route('page.show', ['reference' => $change->parent->combinedReference]) }}">{{ $change->parent->combinedTitle }}</a>;
                                     {{ ucfirst($change->action) }} at
                                     <strong>{{ date('H:i', strtotime($change->latest_created_at)) }}</strong> . .
 
@@ -41,7 +41,7 @@
                                 @endif
 
                             @else
-                                {{ $change->parent->title }}
+                                {{ $change->parent->title }} by <a href="{{ url('/user/' . $change->user->name) }}">{{ $change->user->name }}</a>
                             @endif
                         @elseif ($change->parent_type == 'special:home')
                             Home Page, Edited at <strong>{{ date('H:i', strtotime($change->latest_created_at)) }}</strong>
