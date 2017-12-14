@@ -32,7 +32,11 @@
                     <ul>
                         @foreach($page_list as $page)
                             <li>
-                                <a href="{{ route('page.show', ['reference' => ucfirst($page->namespace).':'.$page->reference]) }}">{{ $page->title }}</a>
+                                @if ($page->namespace !== null || !empty($page->namespace))
+                                    <a href="{{ route('page.show', ['reference' => ucfirst($page->namespace).':'.$page->reference]) }}">{{ $page->title }}</a>
+                                @else
+                                    <a href="{{ route('page.show', ['reference' => $page->reference]) }}">{{ $page->title }}</a>
+                                @endif
                             </li>
                         @endforeach
                     </ul>
