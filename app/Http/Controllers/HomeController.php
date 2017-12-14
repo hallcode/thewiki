@@ -86,9 +86,6 @@ class HomeController extends Controller
         $edit->action = "edit";
         $edit->save();
 
-        return redirect(route('resource', [
-            'namespace' => 'special',
-            'reference' => 'home'
-        ]));
+        return redirect(route('home'));
     }
 }
