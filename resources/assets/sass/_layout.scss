@@ -125,7 +125,8 @@ body {
 
         @media (min-width: 861px) {
           border-right-width: 1px;
-          border-radius: $border-radius-large;
+          border-top-left-radius: $border-radius-large;
+          border-bottom-left-radius: $border-radius-large;
           border-left-width: 1px;
         }
 
