@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resolvers\WikiResolver;
 use App\Models\Edit;
 use App\Models\Infobox;
 use Illuminate\Http\Request;
@@ -13,7 +14,8 @@ class InfoboxController extends Controller
 {
     public function edit($reference)
     {
-        $page = Page::findByTitle($reference);
+        $resolver = new WikiResolver($reference);
+        $page = $resolver->returnPageObject();
 
         $this->authorize('update', $page);
 
@@ -27,7 +29,7 @@ class InfoboxController extends Controller
         return view('page.infobox', [
             'page' => $page,
             'tabsLeft' => $page->tabsLeft(),
-            '_url' => route('infobox.edit', ['reference' => $page->reference]),
+            '_url' => route('infobox.edit', ['reference' => $page->combinedReference]),
             '_cm' => true
         ]);
     }

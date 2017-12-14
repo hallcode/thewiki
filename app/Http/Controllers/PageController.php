@@ -202,7 +202,7 @@ class PageController extends Controller
         return view('page.edit', [
             'page' => $page,
             'tabsLeft' => $page->tabsLeft(),
-            '_url' => route('page.show', ['reference' => $page->reference])
+            '_url' => route('page.show', ['reference' => $page->combinedReference])
         ]);
     }
 

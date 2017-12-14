@@ -120,9 +120,9 @@ class Page extends Model
     public function tabsLeft()
     {
         return [
-            'Page' => route('page.show', ['reference' => $this->reference]),
+            'Page' => route('page.show', ['reference' => $this->combinedReference]),
             'Talk' => '#',
-            'InfoBox' => route('infobox.edit', ['reference' => $this->reference]),
+            'InfoBox' => route('infobox.edit', ['reference' => $this->combinedReference]),
         ];
     }
 
