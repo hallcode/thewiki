@@ -4,12 +4,6 @@
     <a href="/" class="active tab">Users</a>
 @endsection
 
-@section('rightTabs')
-    <a href="{{ route('resource', ['namespace' => 'Special', "reference" => "home"]) }}" class="active tab">Read</a>
-    <a href="{{ route('home.edit') }}" class="tab">Edit</a>
-    <a href="{{ route('resource', ['namespace' => 'Special', "reference" => "home"]) }}" class="tab">View history</a>
-@endsection
-
 @section('content')
     <header>
         <h1>Users</h1>
