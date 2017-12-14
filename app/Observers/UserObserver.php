@@ -10,10 +10,8 @@ class UserObserver
 {
     public function registered(User $user)
     {
-        $roleTypes = config('security.roles');
-
         $role = new Role();
-        $role->type = $roleTypes[0];
+        $role->type = 'new';
         $user->roles()->save($role);
     }
 }

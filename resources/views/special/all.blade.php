@@ -6,7 +6,11 @@
 
 @section('content')
     <header>
-        <h1>All Pages</h1>
+        @if ($namespace !== null)
+            <h1>Pages in <em>{{ ucfirst($namespace) }}</em> namespace</h1>
+        @else
+            <h1>All Pages</h1>
+        @endif
         <nav>
             <a class="btn btn-success" href="{{ route('page.create') }}">
                 <i class="fa fa-fw fa-plus"></i> Create Page
@@ -28,7 +32,7 @@
                     <ul>
                         @foreach($page_list as $page)
                             <li>
-                                <a href="{{ route('page.show', ['reference' => $page->reference]) }}">{{ $page->title }}</a>
+                                <a href="{{ route('page.show', ['reference' => ucfirst($page->namespace).':'.$page->reference]) }}">{{ $page->title }}</a>
                             </li>
                         @endforeach
                     </ul>

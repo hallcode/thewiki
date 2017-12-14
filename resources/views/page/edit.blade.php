@@ -14,7 +14,7 @@
 
 @section('content')
     <header>
-        <h1>{{ $page->title }}</h1>
+        <h1>Edit: {{ $page->combinedTitle }}</h1>
         <nav>
             <button class="btn btn-primary" form="edit_form">Save</button>
             <a class="btn btn-default" href="{{ route('page.show', ["reference" => $page->reference]) }}">Back</a>

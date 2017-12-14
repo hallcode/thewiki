@@ -13,18 +13,25 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'wiki'], function () {
     // Index
-    Route::get('/', 'PageController@index');
+    Route::get('/', 'PageController@index')->name('page.list');
 
     // Special Pages
+    Route::post('/Special:home', 'HomeController@index')->name('home.store');
     Route::get('/Special:home/edit', 'HomeController@edit')->name('home.edit');
     Route::post('/Special:home/edit', 'HomeController@store')->name('home.store');
 
-    // Resources
-    Route::get('/{namespace}:{reference}', 'WikiController@dispatcher')->name('resource');
+    Route::get('/Special:random', 'SpecialController@random')->name('special.random');
+    Route::get('/Special:needed', 'SpecialController@needed')->name('special.needed');
+    Route::get('/Special:recent', 'SpecialController@recent')->name('special.recent');
+    Route::get('/Special:all', 'PageController@index')->name('special.all');
+
+
+    Route::get('/InfoBox:{reference}', 'InfoboxController@edit')->name('infobox.edit');
+    Route::post('/InfoBox:{reference}', 'InfoboxController@save')->name('infobox.save');
 
     // Pages
     Route::get('/create', 'PageController@create')->name('page.create');
@@ -33,8 +40,6 @@ Route::group(['prefix' => 'wiki'], function () {
     Route::get('/{reference}', 'PageController@show')->name('page.show');
     Route::get('/{reference}/create', 'PageController@create')->name('page.createWithReference');
     Route::get('/{reference}/edit', 'PageController@edit')->name('page.edit');
-    Route::get('/{reference}/infobox', 'InfoboxController@edit')->name('infobox.edit');
-    Route::post('/{reference}/infobox', 'InfoboxController@save')->name('infobox.save');
     Route::post('/{reference}', 'PageController@update')->name('page.update');
 });
 

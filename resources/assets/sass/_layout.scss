@@ -188,37 +188,6 @@ body {
   }
 }
 
-#warnings-tray {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  > * {
-    display: flex;
-    align-items: center;
-    flex: 1 0;
-    width: 60%;
-    margin-bottom: 2rem;
-
-    > .icon {
-      font-size: 3rem;
-      margin: 0 1rem;
-    }
-
-    > .body {
-      margin-left: 1.5rem;
-    }
-
-    @media (max-width: 1320px) and (min-width: 750px) {
-      width: 90%;
-    }
-
-    @media (max-width: 750px) {
-      width: 100%;
-    }
-  }
-}
-
 form {
   div[class^="col-"], div[class*=" col-"] {
     &:first-child {

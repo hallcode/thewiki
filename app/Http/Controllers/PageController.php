@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resolvers\WikiResolver;
 use App\Models\Category;
 use App\Models\Edit;
 use App\Models\Interlink;
@@ -9,6 +10,8 @@ use App\Models\Page;
 use App\Models\Redirect;
 use DB;
 use Auth;
+use Illuminate\Validation\Rule;
+use Validator;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -26,56 +29,35 @@ class PageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('all', Page::class);
+
+        if ($request->query('namespace'))
+        {
+            $namespace = $request->query('namespace');
+        }
+        else
+        {
+            $namespace = null;
+        }
 
         $pages = DB::table('pages')
             ->select(DB::raw('*, LEFT(`title`, 1) as `first_letter`'))
             ->whereNull('deleted_at')
+            ->where('namespace', $namespace)
             ->orderBy('title')
             ->paginate(100);
 
-        return view('special.all', ['pages' => $pages, '_title' => 'All Pages']);
-    }
-
-    public function needed()
-    {
-        $this->authorize('all', Page::class);
-
-        $redlinks = Interlink::select('link_reference', DB::raw('count(`link_reference`) as `count`'))
-            ->whereNull('target_page_id')
-            ->groupBy('link_reference')
-            ->orderByDesc('count')
-            ->orderBy('link_reference')
-            ->paginate(40);
-
-        return view('special.needed', ['links' => $redlinks, '_title' => 'Needed Pages']);
-    }
-
-    public function recent()
-    {
-        $this->authorize('all', Page::class);
-
-        $recentChanges = Edit::select(
-                '*',
-                DB::raw('count(`id`) as `edit_count`'),
-                DB::raw('DATE(`created_at`) as `date`'),
-                DB::raw('max(`created_at`) as `latest_created_at`'))
-            ->whereNotNull('parent_id')
-            ->groupBy(DB::Raw('`parent_type`, `parent_id`, `action`, `user_id`, `date`'))
-            ->orderByDesc('latest_created_at')
-            ->limit(40)
-            ->get();
-
-        return view('special.recent', [
-            'all_changes' => $recentChanges,
-            '_title' => 'Recent Changes'
+        return view('special.all', [
+            'pages' => $pages,
+            'namespace' => $namespace,
+            '_title' => 'All Pages'
         ]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new page.
      *
      * @param null $reference
      *
@@ -85,7 +67,11 @@ class PageController extends Controller
     {
         $this->authorize('create', Page::class);
 
-        $page = Page::findByTitle($reference);
+        $resolver = new WikiResolver($reference);
+
+        $page = $resolver->returnPageObject();
+
+        $templates = Page::Namespace('template')->select('id','title')->get();
 
         if ($page->count() === 0)
         {
@@ -97,11 +83,12 @@ class PageController extends Controller
 
             return view('page.create', [
                 'page' => $page,
-                '_title' => 'Create Page ' . $page->title
+                '_title' => 'Create Page ' . $page->title,
+                'templates' => $templates
             ]);
         }
 
-        return redirect(route('page.show', ['reference' => $page->reference]));
+        return redirect(route('page.show', ['reference' => $page->combinedReference]));
     }
 
     /**
@@ -110,7 +97,7 @@ class PageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $reference = null)
+    public function store(Request $request)
     {
         $this->authorize('create', Page::class);
 
@@ -121,9 +108,20 @@ class PageController extends Controller
         
         // Not much to validate so lets start
         // Create the new page instance (not persisted)
-        $page = new Page();
+        $resolver = new WikiResolver($request->title);
 
-        $page->title = $request->title;
+        dd($resolver);
+
+        if (str_contains($resolver->namespace, WikiResolver::$protectedNamespaces))
+        {
+            throw new \Exception("You are not allowed to use a restricted namespace");
+            return null;
+        }
+
+        $page = new Page();
+        $page->title = trim($resolver->title);
+        $page->namespace = trim($resolver->namespace);
+
         $page->save();
 
         // Create the version
@@ -141,7 +139,7 @@ class PageController extends Controller
 
         $page->save();
 
-        return redirect(route('page.show', ['reference' => $page->reference]));
+        return redirect(route('page.show', ['reference' => $page->combinedReference]));
         
     }
 
@@ -155,7 +153,9 @@ class PageController extends Controller
      */
     public function show(Request $request, $reference)
     {
-        $page = Page::findByTitle($reference);
+        $resolver = new WikiResolver($reference);
+
+        $page = $resolver->returnPageObject();
 
         if ($page->count() === 0)
         {
@@ -165,7 +165,7 @@ class PageController extends Controller
             if ($redirect->count() !== 0)
             {
                 $request->session()->flash('redirectedFrom', $reference);
-                return redirect(route('page.show', ['reference' => $redirect->first()->page->reference]));
+                return redirect(route('page.show', ['reference' => $redirect->first()->page->combinedReference]));
             }
 
             return $this->suggestCreate($reference);
@@ -188,16 +188,16 @@ class PageController extends Controller
      */
     public function edit($reference)
     {
-        $page = Page::findByTitle($reference);
 
-        $this->authorize('update', $page);
+        $resolver = new WikiResolver($reference);
+        $page = $resolver->returnPageObject();
 
         if ($page->count() === 0)
         {
             return $this->suggestCreate($reference);
         }
 
-        $this->authorize('view', $page);
+        $this->authorize('update', $page);
 
         return view('page.edit', [
             'page' => $page,
@@ -216,7 +216,8 @@ class PageController extends Controller
     public function update(Request $request, $reference)
     {
         // Get Page
-        $page = Page::findByTitle($reference);
+        $resolver = new WikiResolver($reference);
+        $page = $resolver->returnPageObject();
 
         $this->authorize('update', $page);
 
@@ -251,7 +252,7 @@ class PageController extends Controller
         $edit->action = 'edited';
         $page->edits()->save($edit);
 
-        return redirect(route('page.show', ['reference' => $page->reference]));
+        return redirect(route('page.show', ['reference' => $page->combinedReference]));
     }
 
     /**
@@ -265,32 +266,22 @@ class PageController extends Controller
         $this->authorize('delete', Page::class);
     }
 
-    public function random()
-    {
-        $this->authorize('all', Page::class);
-
-        $page = Page::inRandomOrder()->limit(1)->first();
-
-        return redirect(route('page.show', ['reference' => $page->reference]));
-    }
-
     protected function suggestCreate($reference)
     {
         $this->authorize('all', Page::class);
 
-        $reference = str_replace('_', ' ', $reference);
+        $resolver = new WikiResolver($reference);
 
-        // There is no page by that name! Suggest the user creates a new one.
+        // There is no page by that name in the specified namespace! Suggest the user creates a new one.
         $page = new Page();
-        $page->title = $reference;
-        $interlinks = Interlink::where('link_reference', $page->title)
-            ->orWhere('link_reference', $page->reference)
-            ->get();
+        $page->title = $resolver->title;
+        $page->namespace = $resolver->namespace;
+        $interlinks = Interlink::forPage($page->title, $page->namespace)->get();
 
         return view('page.404', [
             'page' => $page,
             'linksFrom' => $interlinks,
-            '_title' => 'Missing Page ' . $reference
+            '_title' => 'Missing Page ' . $page->combinedReference
         ]);
     }
 

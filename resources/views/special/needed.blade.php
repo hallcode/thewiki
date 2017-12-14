@@ -18,9 +18,9 @@
         This page shows a list of all the pages which have been linked to, but not yet made.
     </p>
 
-    @if ($links->count() !== 0)
+    @if ($links->total() !== 0)
       <ol>
-            @foreach($links as $link)
+            @foreach($links->items() as $link)
                 <li>
                     <a href="{{ route('page.show', ['reference' => $link->link_reference]) }}" class="red-link">
                         {{ $link->link_reference }}

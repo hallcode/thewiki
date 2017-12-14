@@ -1,0 +1,20 @@
+What is a Resolver?
+
+The problem:    You have a single URL pattern which can point to
+                different resources / models / controllers etc depending
+                on user input.
+
+The solution:   a)  Create separate routes for all the resources. This is okay
+                    but it can leave your router file looking monstrous and
+                    overgrown.
+
+                b)  Create a another class with static methods, which can be used
+                    to determine what to do with the request using
+                    advanced logic.
+
+                    This leaves the controllers and route files lighter and more
+                    concerned with their main tasks. It also means you don't
+                    have to repeat the same logic in different controller methods.
+
+So basically, Resolvers work something out, which shouldn't be done over and over in controllers, or clutter
+up models, and is too detailed for routing.

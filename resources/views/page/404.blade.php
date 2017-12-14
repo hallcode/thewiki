@@ -11,7 +11,7 @@
 
 @section('content')
     <header>
-        <h1><i>{{ $page->title }}</i></h1>
+        <h1><i>{{ $page->combinedTitle }}</i></h1>
     </header>
     @if ($page->edits->last())
         <p class="meta">Last edited {{ $page->edits->last()->created_at->diffForHumans() }} by <a
@@ -19,7 +19,7 @@
     @endif
 
     <section id="warnings-tray">
-        <article class="warning wiki-box red">
+        <article class="warning-box danger">
             <div class="icon">
                 <i class="fa fa-fw fa-chain-broken"></i>
             </div>

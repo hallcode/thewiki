@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\HasFavourites;
+use App\Traits\HasNamespaces;
 use App\Traits\Versionable;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +16,7 @@ class Page extends Model
     use SoftDeletes;
     use Versionable;
     use HasFavourites;
+    use HasNamespaces;
 
     protected $dates = [
         'created_at',
@@ -96,7 +98,17 @@ class Page extends Model
             return new Infobox($this->attributes['infobox']);
         }
 
+    }
 
+    public function scopeFindByTitle($query, $title, $namespace = null)
+    {
+        return $query->where('namespace', '=', $namespace)
+            ->where(function ($query) use ($title) {
+                $query->where('title', $title)
+                    ->orWhere('reference', $title);
+            })
+            ->get()
+            ->first();
     }
 
     public function setTitleAttribute($value)
@@ -105,18 +117,11 @@ class Page extends Model
         $this->attributes['reference'] = str_replace(' ', '_', $this->attributes['title']);
     }
 
-    public function scopeFindByTitle($query, $title)
-    {
-        return $query->where('title', $title)->orWhere('reference', $title)->get()->first();
-    }
-
     public function tabsLeft()
     {
         return [
             'Page' => route('page.show', ['reference' => $this->reference]),
             'Talk' => '#',
-            'Data' => '#',
-            'Attachments' => '#',
             'InfoBox' => route('infobox.edit', ['reference' => $this->reference]),
         ];
     }

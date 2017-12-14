@@ -9,9 +9,7 @@ return [
             "Random Page" => '/wiki/Special:random',
             "Recent Changes" => "/wiki/Special:recent",
             "Needed Pages" => "/wiki/Special:needed",
-            "All Categories" => "/wiki/Special:categories",
-            "Archive" => "/archive",
-            "Historical Events" => "/history",
+            "All Categories" => "/wiki/Special:categories"
         ]
     ],
 
@@ -19,14 +17,6 @@ return [
         "title" => "Settings",
         "links" => [
             "Users" => "settings/users"
-        ]
-    ],
-
-    [
-        "title" => "Tools",
-        "links" => [
-            "Upload file" => "/archive/create",
-            "Encrypter" => "/encrypter"
         ]
     ]
 

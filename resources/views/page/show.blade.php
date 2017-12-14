@@ -14,7 +14,7 @@
 
 @section('content')
     <header>
-        <h1>{{ $page->title }}</h1>
+        <h1>{{ $page->combinedTitle }}</h1>
         <nav>
             <a href="#" class="icon-button"><i class="fa fa-fw fa-star-o"></i> </a>
             @can('protect', $page)

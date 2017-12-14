@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 
+use App\Http\Resolvers\WikiResolver;
 use App\Models\Edit;
 use App\Models\Interlink;
 use App\Models\Page;
@@ -22,8 +23,8 @@ class PageObserver
 
         // Search interlinks for name matches and update.
         DB::table('interlinks')
-            ->where('link_reference', $page->title)
-            ->orWhere('link_reference', $page->reference)
+            ->where('link_reference', $page->combinedTitle)
+            ->orWhere('link_reference', $page->combinedReference)
             ->update([
                 'target_page_id' => $page->id
             ]);
@@ -95,8 +96,8 @@ class PageObserver
 
         // Search interlinks table for matches and make sure they are cleared
         DB::table('interlinks')
-            ->where('link_reference', $page->title)
-            ->orWhere('link_reference', $page->reference)
+            ->where('link_reference', $page->combinedTitle)
+            ->orWhere('link_reference', $page->combinedReference)
             ->update([
                 'target_page_id' => null
             ]);

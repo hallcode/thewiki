@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Interlink extends Model
 {
@@ -30,5 +31,27 @@ class Interlink extends Model
     public function getTargetExistsAttribute()
     {
         return $this->target_page_id !== null ? true : false;
+    }
+
+    public function scopeForPage($query, $title, $namespace = null)
+    {
+        if ($namespace !== null)
+        {
+            return $query
+                ->where('link_reference', $namespace . ':' . $title)
+                ->orWhere('link_reference', $namespace . ':' . str_replace(' ', '_', $title));
+        }
+
+        return $query
+            ->where('link_reference', $title)
+            ->orWhere('link_reference', str_replace(' ', '_', $title));
+    }
+
+    public function scopeRedlinks($query)
+    {
+        return $query
+            ->whereNull('target_page_id')
+            ->select('link_reference', DB::raw('count(`link_reference`) as `count`'))
+            ->groupBy('link_reference');
     }
 }

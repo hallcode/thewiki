@@ -1,12 +1,11 @@
 @extends('layouts.app')
 
 @section('leftTabs')
-<a href="/" class="active tab">Home</a>
-<a href="{{ route('page.create') }}" class="tab">Create page</a>
+<a href="{{ route('home') }}" class="active tab">Home</a>
 @endsection
 
 @section('rightTabs')
-    <a href="{{ route('resource', ['namespace' => 'Special', "reference" => "home"]) }}" class="active tab">Read</a>
+    <a href="{{ route('home') }}" class="active tab">Read</a>
     <a href="{{ route('home.edit') }}" class="tab">Edit</a>
 @endsection
 

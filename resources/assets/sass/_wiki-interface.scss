@@ -1,3 +1,5 @@
+/*** Tags for user roles ***/
+
 .user-tag {
   $base-color: $gray-light;
 
@@ -36,4 +38,66 @@
     background-color: lighten($base-color, 20%);
     border: 1px solid darken(lighten($base-color, 33%), 20%);
   }
+}
+
+/*** Warning Boxes **/
+
+#warnings-tray {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  > * {
+    display: flex;
+    align-items: center;
+    flex: 1 0;
+    width: 100%;
+    margin-bottom: 2rem;
+
+    > .icon {
+      font-size: 3rem;
+      margin: 0 1rem;
+    }
+
+    > .body {
+      margin-left: 1.5rem;
+    }
+  }
+}
+
+.warning-box {
+  $warning-box-base-color: $laravel-border-color;
+  background-color: lighten($warning-box-base-color, 50%);
+  color: $warning-box-base-color;
+  border: 1px solid $warning-box-base-color;
+  position: relative;
+  padding: 17px 24px 8px 24px;
+  margin-top: 24px;
+  border-radius: $border-radius-large;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &.danger {
+    $warning-box-base-color: $brand-danger;
+    background-color: lighten($warning-box-base-color, 50%);
+    color: $warning-box-base-color;
+    border: 1px solid $warning-box-base-color;
+  }
+
+  &.success {
+    $warning-box-base-color: $brand-success;
+    background-color: lighten($warning-box-base-color, 50%);
+    color: $warning-box-base-color;
+    border: 1px solid $warning-box-base-color;
+  }
+
+  &.warning {
+    $warning-box-base-color: $brand-warning;
+    background-color: lighten($warning-box-base-color, 50%);
+    color: $warning-box-base-color;
+    border: 1px solid $warning-box-base-color;
+  }
+
 }

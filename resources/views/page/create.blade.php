@@ -13,7 +13,7 @@
 
 @section('content')
     <header>
-        <h1>Create Page {{ $page->title }}</h1>
+        <h1>Create Page {{ $page->combinedTitle }}</h1>
         <nav>
             <button class="btn btn-primary" form="edit_form">Create & Save</button>
             @if (isset($page->reference) && $page->reference !== '')
@@ -41,7 +41,10 @@
                     Select Template
                 </label>
                 <select class="form-control" name="template">
-                    <option>Not yet implemented</option>
+                    <option value="null">None</option>
+                    @foreach ($templates as $t)
+                        <option value="{{ $t->id }}">{{ $t->title }}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
