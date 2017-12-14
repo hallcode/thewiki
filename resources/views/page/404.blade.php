@@ -5,8 +5,8 @@
 @endsection
 
 @section('rightTabs')
-    <a href="{{ route('page.show', ["reference" => $page->reference]) }}" class="active tab">Read</a>
-    <a href="{{ route('page.createWithReference', ['reference' => $page->reference]) }}" class="tab">Create</a>
+    <a href="{{ route('page.show', ["reference" => $page->combinedReference]) }}" class="active tab">Read</a>
+    <a href="{{ route('page.createWithReference', ['reference' => $page->combinedReference]) }}" class="tab">Create</a>
 @endsection
 
 @section('content')

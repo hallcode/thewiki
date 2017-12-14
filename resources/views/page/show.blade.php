@@ -7,8 +7,8 @@
 @endsection
 
 @section('rightTabs')
-    <a href="{{ route('page.show', ["reference" => $page->reference]) }}" class="active tab">Read</a>
-    <a href="{{ route('page.edit', ['reference' => $page->reference]) }}" class="tab">Edit</a>
+    <a href="{{ route('page.show', ["reference" => $page->combinedReference]) }}" class="active tab">Read</a>
+    <a href="{{ route('page.edit', ['reference' => $page->combinedReference]) }}" class="tab">Edit</a>
     <a href="#" class="tab">View history</a>
 @endsection
 
@@ -71,7 +71,7 @@
             <ul>
                 @foreach ($page->linked_from as $link)
                     <li>
-                        <a href="{{ route('page.show', ['reference' => $link->page->reference]) }}" class="blue-link">{{ $link->page->title }}</a>
+                        <a href="{{ route('page.show', ['reference' => $link->page->combinedReference]) }}" class="blue-link">{{ $link->page->title }}</a>
                     </li>
                 @endforeach
             </ul>

@@ -7,8 +7,8 @@
 @endsection
 
 @section('rightTabs')
-    <a href="{{ route('page.show', ["reference" => $page->reference]) }}" class="tab">Read</a>
-    <a href="{{ route('page.edit', ['reference' => $page->reference]) }}" class="active tab">Edit</a>
+    <a href="{{ route('page.show', ["reference" => $page->combinedReference]) }}" class="tab">Read</a>
+    <a href="{{ route('page.edit', ['reference' => $page->combinedReference]) }}" class="active tab">Edit</a>
     <a href="#" class="tab">View history</a>
 @endsection
 
@@ -17,11 +17,11 @@
         <h1>Edit: {{ $page->combinedTitle }}</h1>
         <nav>
             <button class="btn btn-primary" form="edit_form">Save</button>
-            <a class="btn btn-default" href="{{ route('page.show', ["reference" => $page->reference]) }}">Back</a>
+            <a class="btn btn-default" href="{{ route('page.show', ["reference" => $page->combinedReference]) }}">Back</a>
         </nav>
     </header>
 
-    <form v-pre id="edit_form" method="post" action="{{ route('page.update', ['reference' => $page->reference]) }}">
+    <form v-pre id="edit_form" method="post" action="{{ route('page.update', ['reference' => $page->combinedReference]) }}">
         {!! csrf_field() !!}
 
         <div class="form-group">
@@ -29,7 +29,7 @@
                 <label>
                     Title
                 </label>
-                <p class="form-control-static" name="title">{{ $page->title }}</p>
+                <p class="form-control-static" name="title">{{ $page->combinedTitle }}</p>
             </div>
             <redirects page-id="{{ $page->id }}"></redirects>
         </div>
@@ -56,7 +56,7 @@
 
         <div class="form-group left-align">
             <button class="btn btn-primary" form="edit_form">Save</button>
-            <a class="btn btn-default" href="{{ route('page.show', ["reference" => $page->reference]) }}">Back</a>
+            <a class="btn btn-default" href="{{ route('page.show', ["reference" => $page->combinedReference]) }}">Back</a>
         </div>
     </form>
 @endsection

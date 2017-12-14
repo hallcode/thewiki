@@ -3,21 +3,57 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  padding: 0 0.3em;
+
+  @media (min-width: 990px) {
+    padding: 0 15px;
+  }
+
+  @media (max-width: 861px) {
+    padding: 0 0px;
+  }
 
   > nav {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    min-width: 100px;
     > * {
+      height: 36px;
       padding: 8px 8px;
       border: 1px solid $laravel-border-color;
-      margin: 0 0.3rem -1px 0.3rem;
+      margin: 0 0.2rem -1px 0.2rem;
       border-top-left-radius: $border-radius-base;
       border-top-right-radius: $border-radius-base;
       background: lighten($laravel-border-color, 25%);
 
-      &:before {
+      @media (min-width: 990px) {
+        padding: 8px 16px;
+        margin: 0 0.5rem -1px 0.5rem;
 
+        &:after {
+          position: absolute;
+          content: ' ';
+          background: inherit;
+          border: inherit;
+          border-left: 0;
+          height: 36px;
+          width: 18px;
+          border-top-right-radius: $border-radius-base * 1.33;
+          transform: translate(5px,-9px) skew(18deg);
+        }
+
+        &:before {
+          position: absolute;
+          content: ' ';
+          background: inherit;
+          border: inherit;
+          border-right: 0;
+          height: 36px;
+          width: 18px;
+          border-top-left-radius: $border-radius-base * 1.33;
+          transform: translate(-23px,-9px) skew(-18deg);
+        }
       }
 
       &:first-of-type {
@@ -25,7 +61,7 @@
       }
 
       &:not(.mobile-only) {
-        @media (max-width: 860px) {
+        @media (max-width: 861px) {
           display: none;
         }
       }
@@ -39,6 +75,7 @@
         background: #fff;
         color: $text-color;
         border-bottom-color: #fff;
+        z-index: 100;
 
         &:hover {
           text-decoration: none;

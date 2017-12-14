@@ -5,10 +5,10 @@
 @endsection
 
 @section('rightTabs')
-    @if (isset($page->reference) && $page->reference !== '')
-        <a href="{{ route('page.show', ["reference" => $page->reference]) }}" class="tab">Read</a>
+    @if (isset($page->combinedReference) && $page->combinedReference !== '')
+        <a href="{{ route('page.show', ["reference" => $page->combinedReference]) }}" class="tab">Read</a>
     @endif
-    <a href="{{ route('page.createWithReference', ['reference' => $page->reference]) }}" class="active tab">Create</a>
+    <a href="{{ route('page.createWithReference', ['reference' => $page->combinedReference]) }}" class="active tab">Create</a>
 @endsection
 
 @section('content')
@@ -16,8 +16,8 @@
         <h1>Create Page {{ $page->combinedTitle }}</h1>
         <nav>
             <button class="btn btn-primary" form="edit_form">Create & Save</button>
-            @if (isset($page->reference) && $page->reference !== '')
-                <a class="btn btn-default" href="{{ route('page.show', ["reference" => $page->reference]) }}">Back</a>
+            @if (isset($page->combinedReference) && $page->combinedReference !== '')
+                <a class="btn btn-default" href="{{ route('page.show', ["reference" => $page->combinedReference]) }}">Back</a>
             @endif
         </nav>
     </header>
@@ -31,7 +31,7 @@
                     Title
                 </label>
                 @if (isset($page->title))
-                    <input class="form-control" name="title" value="{{ $page->title }}" required>
+                    <input class="form-control" name="title" value="{{ $page->combinedTitle }}" required>
                 @else
                     <input class="form-control" name="title" required>
                 @endif
@@ -68,8 +68,8 @@
 
         <div class="form-group left-align">
             <button class="btn btn-primary" form="edit_form">Create & Save</button>
-            @if (isset($page->reference) && $page->reference !== '')
-                <a class="btn btn-default" href="{{ route('page.show', ["reference" => $page->reference]) }}">Back</a>
+            @if (isset($page->combinedReference) && $page->combinedReference !== '')
+                <a class="btn btn-default" href="{{ route('page.show', ["reference" => $page->combinedReference]) }}">Back</a>
             @endif
         </div>
     </form>

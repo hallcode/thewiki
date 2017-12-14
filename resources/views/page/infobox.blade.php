@@ -7,9 +7,8 @@
 @endsection
 
 @section('rightTabs')
-    <a href="{{ route('page.show', ["reference" => $page->reference]) }}" class="tab">Read</a>
+    <a href="{{ route('page.show', ["reference" => $page->combinedReference]) }}" class="tab">Read</a>
     <a href="#!" class="tab active">Edit</a>
-    <a href="#" class="tab">View history</a>
 @endsection
 
 @section('content')
@@ -17,11 +16,11 @@
         <h1>Edit: {{ $page->combinedTitle }} - InfoBox</h1>
         <nav>
             <button class="btn btn-primary" form="infobox_form">Save</button>
-            <a class="btn btn-default" href="{{ route('page.show', ["reference" => $page->reference]) }}">Back</a>
+            <a class="btn btn-default" href="{{ route('page.show', ["reference" => $page->combinedReference]) }}">Back</a>
         </nav>
     </header>
 
-    <form v-pre id="infobox_form" method="post" action="{{ route('infobox.save', ['reference' => $page->reference]) }}">
+    <form v-pre id="infobox_form" method="post" action="{{ route('infobox.save', ['reference' => $page->combinedReference]) }}">
         {!! csrf_field() !!}
 
         <div style="display: grid; grid-template-columns: 3fr 2fr">
@@ -44,7 +43,7 @@
 
         <div class="form-group wiki-box left-align">
             <button class="btn btn-primary" form="infobox_form">Save</button>
-            <a class="btn btn-default" href="{{ route('page.show', ["reference" => $page->reference]) }}">Back</a>
+            <a class="btn btn-default" href="{{ route('page.show', ["reference" => $page->combinedReference]) }}">Back</a>
         </div>
     </form>
 @endsection
