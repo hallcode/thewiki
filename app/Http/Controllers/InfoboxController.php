@@ -21,7 +21,7 @@ class InfoboxController extends Controller
 
         if ($page->count() === 0)
         {
-            return $this->suggestCreate($reference);
+            abort(404);
         }
 
         $this->authorize('view', $page);
@@ -37,13 +37,14 @@ class InfoboxController extends Controller
     public function save(Request $request, $reference)
     {
         // Get Page
-        $page = Page::findByTitle($reference);
+        $resolver = new WikiResolver($reference);
+        $page = $resolver->returnPageObject();
 
         $this->authorize('update', $page);
 
         if ($page->count() === 0)
         {
-            return $this->suggestCreate($reference);
+            abort(404);
         }
 
         $page->infobox = $request->yaml;
@@ -56,7 +57,7 @@ class InfoboxController extends Controller
         $edit->action = 'edited';
         $page->edits()->save($edit);
 
-        return redirect(route('page.show', ['reference' => $page->reference]));
+        return redirect(route('page.show', ['reference' => $page->combinedReference]));
     }
 
     public function preview(Request $request)
