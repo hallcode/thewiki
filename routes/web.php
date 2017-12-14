@@ -58,4 +58,7 @@ Route::group(['prefix' => 'ajax'], function () {
     Route::get('/redirect/{page}', 'Ajax\RedirectController@get');
     Route::post('/redirect/delete/{redirect}', 'Ajax\RedirectController@delete');
     Route::post('/redirect/{page}/{title}', 'Ajax\RedirectController@add');
+
+    // Template
+    Route::get('/template/{id}', 'PageController@getTemplate');
 });

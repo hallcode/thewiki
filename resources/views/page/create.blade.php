@@ -40,7 +40,7 @@
                 <label>
                     Select Template
                 </label>
-                <select class="form-control" name="template">
+                <select id="templateSelector" class="form-control" name="template" onchange="setTemplate()">
                     <option value="null">None</option>
                     @foreach ($templates as $t)
                         <option value="{{ $t->id }}">{{ $t->title }}</option>
@@ -91,5 +91,13 @@
         $(window).resize(function () {
             $('.select2').css('width', '100%');
         })
+
+        function setTemplate()
+        {
+            var id = $('#templateSelector').val();
+            $.get('/ajax/template/'+id).done(function (data) {
+                window.markdownEditor.value(data);
+            });
+        }
     </script>
 @endsection

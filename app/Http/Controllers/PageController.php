@@ -315,4 +315,17 @@ class PageController extends Controller
 
         return $page->categories()->sync($categories);
     }
+
+    public function getTemplate($id)
+    {
+        $template = Page::where('id', $id)
+            ->where('namespace', 'template');
+
+        if ($template->count() !== 1)
+        {
+            return response("Not found", 404);
+        }
+
+        return response($template->first()->current_version->markdown);
+    }
 }

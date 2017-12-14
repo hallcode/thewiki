@@ -5,7 +5,7 @@ CodeMirrorSpellChecker({
 
 
 // Simple MDE
-var markdownEditor = new SimpleMDE({
+window.markdownEditor = new SimpleMDE({
     element: document.getElementById("md-editor"),
     spellChecker: true,
 });
