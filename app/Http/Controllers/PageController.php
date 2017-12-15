@@ -118,7 +118,11 @@ class PageController extends Controller
 
         $page = new Page();
         $page->title = trim($resolver->title);
-        $page->namespace = trim($resolver->namespace);
+
+        if ($resolver->namespace !== null)
+        {
+            $page->namespace = $resolver->namespace;
+        }
 
         $page->save();
 
