@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('leftTabs')
-    <a href="/" class="active tab">Special Page</a>
+    <a href="/" class="active tab">All pages</a>
 @endsection
 
 @section('content')
@@ -44,7 +44,7 @@
             @endforeach
         </dl>
 
-        {{ $pages->links() }} <em>Total pages: {{ $pages->count() }}</em>
+        {{ $pages->links() }} <em>Total pages: {{ $pages->total() }}</em>
     @else
         <p>No pages. Make one now.</p>
     @endif

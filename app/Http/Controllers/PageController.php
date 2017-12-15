@@ -43,11 +43,11 @@ class PageController extends Controller
         }
 
         $pages = DB::table('pages')
-            ->select(DB::raw('*, LEFT(`title`, 1) as `first_letter`'))
-            ->whereNull('deleted_at')
-            ->where('namespace', $namespace)
-            ->orderBy('title')
-            ->paginate(100);
+        ->select(DB::raw('*, LEFT(`title`, 1) as `first_letter`'))
+        ->whereNull('deleted_at')
+        ->where('namespace', $namespace)
+        ->orderBy('title')
+        ->paginate(100);
 
         return view('special.all', [
             'pages' => $pages,
@@ -107,7 +107,7 @@ class PageController extends Controller
         ]);
         
         // Not much to validate so lets start
-        // Create the new page instance (not persisted)
+        // Create the new page instance
         $resolver = new WikiResolver($request->title);
 
         if (str_contains($resolver->namespace, WikiResolver::$protectedNamespaces))

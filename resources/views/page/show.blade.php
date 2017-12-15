@@ -49,7 +49,7 @@
             <ul>
                 @foreach ($page->categories as $category)
                     <li>
-                        <a href="#">{{ $category->title }}</a>
+                        <a href="{{ route('category.show', ['title'=>$category->title]) }}">{{ $category->title }}</a>
                     </li>
                 @endforeach
             </ul>
