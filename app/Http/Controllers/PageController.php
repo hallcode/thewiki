@@ -110,8 +110,6 @@ class PageController extends Controller
         // Create the new page instance (not persisted)
         $resolver = new WikiResolver($request->title);
 
-        dd($resolver);
-
         if (str_contains($resolver->namespace, WikiResolver::$protectedNamespaces))
         {
             throw new \Exception("You are not allowed to use a restricted namespace");

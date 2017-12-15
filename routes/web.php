@@ -15,6 +15,9 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
+/**
+ * Wiki Pages
+ */
 Route::group(['prefix' => 'wiki'], function () {
     // Index
     Route::get('/', 'PageController@index')->name('page.list');
@@ -33,6 +36,10 @@ Route::group(['prefix' => 'wiki'], function () {
     Route::get('/InfoBox:{reference}', 'InfoboxController@edit')->name('infobox.edit');
     Route::post('/InfoBox:{reference}', 'InfoboxController@save')->name('infobox.save');
 
+    // Categories
+    Route::get('/Category:all', 'CategoryController@index')->name('category.list');
+    Route::get('/Category:{title}', 'CategoryController@show')->name('category.show');
+
     // Pages
     Route::get('/create', 'PageController@create')->name('page.create');
     Route::post('/create', 'PageController@store')->name('page.store');
@@ -43,10 +50,17 @@ Route::group(['prefix' => 'wiki'], function () {
     Route::post('/{reference}', 'PageController@update')->name('page.update');
 });
 
+/**
+ * Settings
+ */
 Route::group(['prefix' => 'settings', 'middleware' => 'auth'], function () {
     Route::get('/users', 'UserController@index')->name('set.users');
 });
 
+
+/**
+ * AJAX routes. Not for API stuff.
+ */
 Route::group(['prefix' => 'ajax'], function () {
     // Infobox preview
     Route::post('/infobox', 'InfoboxController@preview');
